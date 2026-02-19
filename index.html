@@ -663,30 +663,26 @@
                 </div>
             </div>
 
-            <!-- Problem Statement -->
+            <!-- Problem & Impact -->
             <div class="section">
                 <div class="section-header">
-                    <h2 class="section-title">Problem Statement</h2>
-                    <p class="section-subtitle">What problem are we solving and what's the impact?</p>
+                    <h2 class="section-title">Problem & Impact</h2>
+                    <p class="section-subtitle">What's broken and why does it matter?</p>
                 </div>
                 <div class="field">
                     <div class="field-label">
-                        Problem Description
+                        Problem & Quantified Impact
                         <button class="ai-suggest" onclick="aiSuggestExample('problem')">✨ AI Suggest</button>
                     </div>
                     <textarea 
                         id="problem-statement" 
-                        placeholder="Describe what's broken or missing today..."
+                        placeholder="What's broken or missing? Include quantified impact (e.g., '85% of users ignore dashboard, costing $200K/year in missed insights')"
+                        style="min-height: 120px;"
                         oninput="autosave()"
                     ></textarea>
-                </div>
-                <div class="field">
-                    <div class="field-label">Quantified Impact</div>
                     <input 
-                        type="text" 
-                        id="problem-impact" 
-                        placeholder="e.g., 85% of users ignore dashboard, costing $200K/year"
-                        oninput="autosave()"
+                        type="hidden" 
+                        id="problem-impact"
                     >
                 </div>
             </div>
@@ -726,22 +722,23 @@
                 </div>
             </div>
 
-            <!-- Opportunity -->
+            <!-- Business Value -->
             <div class="section">
                 <div class="section-header">
-                    <h2 class="section-title">Opportunity</h2>
-                    <p class="section-subtitle">What's the business value if we solve this?</p>
+                    <h2 class="section-title">Business Value</h2>
+                    <p class="section-subtitle">What's the value if we solve this? Keep it brief.</p>
                 </div>
                 <div class="field">
                     <div class="field-label">
-                        Business Value
+                        Expected Business Impact
                         <button class="ai-suggest" onclick="aiSuggestExample('opportunity')">✨ AI Suggest</button>
                     </div>
-                    <textarea 
+                    <input 
+                        type="text" 
                         id="opportunity-statement" 
-                        placeholder="Describe the business opportunity and value..."
+                        placeholder="e.g., Increase engagement 4x, reduce support tickets 40%, save $450K/year"
                         oninput="autosave()"
-                    ></textarea>
+                    >
                 </div>
             </div>
 
@@ -802,38 +799,6 @@
                             oninput="autosave()"
                         >
                     </div>
-                </div>
-            </div>
-
-            <!-- Customer Announcement -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Customer Announcement</h2>
-                    <p class="section-subtitle">How would you announce this to customers?</p>
-                </div>
-                <div class="field">
-                    <div class="field-label">
-                        Draft Announcement
-                        <button class="ai-suggest" onclick="aiSuggestExample('announcement')">✨ AI Suggest</button>
-                    </div>
-                    <textarea 
-                        id="customer-announcement" 
-                        placeholder="Write as if it's launch day. What's the headline? What's the benefit?"
-                        style="min-height: 100px;"
-                        oninput="autosave()"
-                    ></textarea>
-                    <div class="info-text">
-                        Tip: If you can't write a clear announcement, rethink the feature.
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="field-label">One-Sentence Benefit</div>
-                    <input 
-                        type="text" 
-                        id="customer-benefit" 
-                        placeholder="e.g., See your metrics in seconds instead of minutes"
-                        oninput="autosave()"
-                    >
                 </div>
             </div>
 
@@ -1024,7 +989,7 @@
                 priority: document.getElementById('priority').value,
                 value: document.getElementById('value').value,
                 problemStatement: document.getElementById('problem-statement').value,
-                problemImpact: document.getElementById('problem-impact').value,
+                problemImpact: '', // Now merged into problemStatement
                 personaInsights: document.getElementById('persona-insights').value,
                 personaSuccess: document.getElementById('persona-success').value,
                 opportunity: document.getElementById('opportunity-statement').value,
@@ -1035,8 +1000,6 @@
                     method: document.getElementById('kpi1-method').value,
                     results: document.getElementById('kpi1-results').value
                 },
-                announcement: document.getElementById('customer-announcement').value,
-                benefit: document.getElementById('customer-benefit').value,
                 stakeholders: {
                     dm1: {
                         name: document.getElementById('dm1-name').value,
@@ -1061,7 +1024,6 @@
             document.getElementById('priority').value = data.priority || '';
             document.getElementById('value').value = data.value || '';
             document.getElementById('problem-statement').value = data.problemStatement || '';
-            document.getElementById('problem-impact').value = data.problemImpact || '';
             document.getElementById('persona-insights').value = data.personaInsights || '';
             document.getElementById('persona-success').value = data.personaSuccess || '';
             document.getElementById('opportunity-statement').value = data.opportunity || '';
@@ -1070,8 +1032,6 @@
             document.getElementById('kpi1-target').value = data.kpi?.target || '';
             document.getElementById('kpi1-method').value = data.kpi?.method || '';
             document.getElementById('kpi1-results').value = data.kpi?.results || '';
-            document.getElementById('customer-announcement').value = data.announcement || '';
-            document.getElementById('customer-benefit').value = data.benefit || '';
             document.getElementById('dm1-name').value = data.stakeholders?.dm1?.name || '';
             document.getElementById('dm1-role').value = data.stakeholders?.dm1?.role || '';
             document.getElementById('dm1-status').value = data.stakeholders?.dm1?.status || '';
@@ -1317,9 +1277,7 @@ Return ONLY valid JSON in this exact format:
                 
                 personas: "Sarah Chen, Account Manager at mid-market SaaS companies, manages 50+ B2B accounts and needs to stay on top of client health. Her day is packed with meetings and she's often on-the-go between client calls.\n\nKey Goals: Track client health at a glance, spot issues before clients complain, prepare for calls in under 5 minutes, identify upsell opportunities.\n\nPain Points: Data scattered across 5 different tools (Salesforce, Zendesk, billing, analytics, spreadsheets). Creating client health reports takes 2+ hours. Often blindsided by churn because she didn't see warning signs. Can't access data on mobile when traveling.\n\nBehaviors: Checks dashboard 3-4x per day, often on mobile. Morning routine is coffee + dashboard review (needs <10 min). Works from coffee shops, airports, client offices. Needs quick answers for 'how's my account doing?' questions. Prefers visuals over tables.\n\nResearch Insights: Users don't trust real-time data - they verify in spreadsheets (trust issue to address). Mobile usage spikes Monday mornings and Friday afternoons (travel times). 70% of users only look at 4-5 metrics - the rest is noise. Account managers are measured on retention, so leading indicators are crucial.",
                 
-                opportunity: "Modern dashboard with real-time metrics can increase engagement from 15% to 60% (4x), reduce 'where's my data' support tickets by 40%, and enable data-driven decisions 3x faster. Estimated annual value: $450K from reduced churn and improved efficiency.",
-                
-                announcement: "Introducing Your New Dashboard: See What Matters, Instantly\n\nWe've redesigned your dashboard from the ground up. Now you can see your most important metrics—revenue, customers, conversions—the moment you log in. No more clicking through screens. No more waiting. Just instant insights that help you make better decisions, faster.",
+                opportunity: "Increase engagement 4x (15% → 60%), reduce support tickets 40%, enable faster decisions. Est. $450K/year value from reduced churn + improved efficiency.",
                 
                 kpi: {
                     name: "Daily Active Users",
@@ -1375,14 +1333,23 @@ Return ONLY valid JSON in this exact format:
             
             const fieldMap = {
                 problem: 'problem-statement',
-                opportunity: 'opportunity-statement',
-                announcement: 'customer-announcement'
+                opportunity: 'opportunity-statement'
             };
             
             const fieldId = fieldMap[section];
             const field = document.getElementById(fieldId);
             const text = examples[section];
             
+            if (!field || !text) return;
+            
+            // Opportunity is now a text input, set it directly
+            if (section === 'opportunity') {
+                field.value = text;
+                autosave();
+                return;
+            }
+            
+            // For problem (textarea), use typewriter effect
             field.value = '';
             let i = 0;
             const typeWriter = setInterval(() => {
@@ -1473,11 +1440,6 @@ Return ONLY valid JSON in this exact format:
                 });
             });
             
-            // Customer-Facing
-            markdown += `---\n\n`;
-            markdown += `## Customer Announcement\n\n`;
-            markdown += `${briefData.announcement}\n\n`;
-            markdown += `**One-line benefit:** ${briefData.benefit}\n\n`;
             
             // Download
             const blob = new Blob([markdown], { type: 'text/markdown' });
