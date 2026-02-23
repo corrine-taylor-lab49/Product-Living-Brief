@@ -15,141 +15,193 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
             min-height: 100vh;
-            padding: 60px 20px;
             color: #E2E8F0;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+        /* Layout */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(148, 163, 184, 0.1);
+            transition: transform 0.3s ease;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
         }
 
-        .header h1 {
-            font-size: 48px;
+        .sidebar.collapsed {
+            transform: translateX(-280px);
+        }
+
+        .sidebar-header {
+            padding: 32px 24px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .sidebar-title {
+            font-size: 20px;
             font-weight: 300;
             color: #F8FAFC;
-            letter-spacing: -1px;
-            margin-bottom: 24px;
+            letter-spacing: -0.3px;
         }
 
-        .settings-link {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 13px;
+        .sidebar-nav {
+            flex: 1;
+            padding: 24px 0;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            padding: 14px 24px;
             color: #94A3B8;
-            text-decoration: none;
             cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
-        .settings-link:hover {
-            color: #60A5FA;
+        .nav-item:hover {
+            background: rgba(59, 130, 246, 0.05);
+            color: #CBD5E1;
         }
 
-        .tabs {
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.1);
+            border-left-color: #60A5FA;
+            color: #F8FAFC;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            transition: margin-left 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: 0;
+        }
+
+        .content-header {
+            padding: 32px 48px;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
             display: flex;
-            gap: 8px;
-            justify-content: center;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .tab-btn {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            color: #94A3B8;
-            padding: 12px 32px;
+        .toggle-sidebar-btn {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #60A5FA;
+            padding: 10px 16px;
             border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-        }
-
-        .tab-btn:hover {
-            border-color: #60A5FA;
-            color: #E2E8F0;
-        }
-
-        .tab-btn.active {
-            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-            border-color: transparent;
-            color: white;
-        }
-
-        .brief-container {
-            background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            padding: 60px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            background: rgba(251, 191, 36, 0.1);
-            color: #FCD34D;
-            border: 1px solid rgba(251, 191, 36, 0.2);
-            margin-bottom: 40px;
         }
 
-        .title-input {
+        .toggle-sidebar-btn:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: #60A5FA;
+        }
+
+        .page-title {
             font-size: 32px;
             font-weight: 300;
-            border: none;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-            outline: none;
-            width: 100%;
-            padding: 16px 0;
-            margin-bottom: 40px;
-            transition: all 0.3s;
             color: #F8FAFC;
-            background: transparent;
             letter-spacing: -0.5px;
         }
 
-        .title-input:focus {
-            border-bottom-color: #60A5FA;
+        .page-subtitle {
+            font-size: 14px;
+            color: #94A3B8;
+            margin-top: 8px;
+            line-height: 1.6;
         }
 
-        .title-input::placeholder {
-            color: #475569;
+        .content-body {
+            padding: 48px;
+            max-width: 900px;
         }
 
-        .meta-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 60px;
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
         }
 
-        .meta-item {
-            background: rgba(15, 23, 42, 0.5);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(148, 163, 184, 0.1);
+        .page.active {
+            display: block;
         }
 
-        .meta-label {
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Form Elements */
+        .form-section {
+            margin-bottom: 48px;
+        }
+
+        .section-label {
             font-size: 11px;
             text-transform: uppercase;
-            color: #94A3B8;
+            color: #64748B;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             letter-spacing: 1px;
         }
 
-        input[type="text"], input[type="number"], textarea, select {
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .form-field {
+            margin-bottom: 24px;
+        }
+
+        .field-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #CBD5E1;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
             width: 100%;
             padding: 12px 16px;
             border: 1px solid rgba(148, 163, 184, 0.2);
@@ -162,106 +214,184 @@
             line-height: 1.5;
         }
 
-        input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+        input:focus,
+        textarea:focus,
+        select:focus {
             outline: none;
             border-color: #60A5FA;
             background: rgba(15, 23, 42, 0.8);
         }
 
-        input[type="text"]::placeholder, textarea::placeholder {
+        input::placeholder,
+        textarea::placeholder {
             color: #475569;
         }
 
         textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
 
-        .section {
-            margin-bottom: 60px;
-            padding-bottom: 60px;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        .title-input {
+            font-size: 24px;
+            font-weight: 300;
+            padding: 16px 0;
+            border: none;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            background: transparent;
+            margin-bottom: 32px;
         }
 
-        .section:last-child {
-            border-bottom: none;
+        .title-input:focus {
+            border-bottom-color: #60A5FA;
         }
 
-        .section-header {
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #F8FAFC;
-            letter-spacing: -0.3px;
-            margin-bottom: 8px;
-        }
-
-        .section-subtitle {
-            font-size: 13px;
-            color: #94A3B8;
-            line-height: 1.6;
-        }
-
-        .field {
-            margin-bottom: 24px;
-        }
-
-        .field-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #CBD5E1;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .ai-suggest {
+        /* Buttons */
+        .btn-primary {
             background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
             color: white;
             border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 11px;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            margin-left: auto;
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .ai-suggest:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
         }
 
-        .warning-box {
-            background: rgba(251, 191, 36, 0.05);
-            border-left: 3px solid #FCD34D;
-            padding: 16px 20px;
+        .btn-secondary {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: #E2E8F0;
+            padding: 12px 24px;
             border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-secondary:hover {
+            border-color: #60A5FA;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(251, 191, 36, 0.1);
+            color: #FCD34D;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            margin-bottom: 24px;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 3px solid #60A5FA;
+            padding: 16px 20px;
+            border-radius: 6px;
             margin-bottom: 24px;
             font-size: 13px;
-            color: #FCD34D;
+            color: #94A3B8;
             line-height: 1.6;
         }
 
-        .info-text {
-            font-size: 12px;
-            color: #64748B;
-            margin-top: 8px;
-            line-height: 1.5;
+        /* Feature Cards */
+        .feature-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
         }
 
+        .feature-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .feature-number {
+            font-size: 11px;
+            font-weight: 600;
+            color: #60A5FA;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .remove-btn {
+            background: transparent;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #F87171;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #EF4444;
+        }
+
+        .feature-story-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #CBD5E1;
+        }
+
+        .feature-story-line select {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+
+        .feature-action-input {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        /* Stakeholder Rows */
+        .stakeholder-row {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* KPI Grid */
         .kpi-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 12px;
             align-items: end;
+            margin-bottom: 12px;
         }
 
         .kpi-label {
@@ -272,95 +402,52 @@
             letter-spacing: 0.5px;
         }
 
-        .kpi-label.disabled {
-            color: #475569;
-        }
-
-        input.disabled-result {
+        .disabled-result {
             background: rgba(15, 23, 42, 0.3);
             color: #475569;
-            border-color: rgba(148, 163, 184, 0.1);
             cursor: not-allowed;
         }
 
-        .stakeholder-row {
-            display: grid;
-            grid-template-columns: 2fr 2fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        /* Requirements Tab Styles */
-        .requirements-header {
+        /* Requirements Page Styles */
+        .generate-section {
             text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .generate-btn {
-            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-            color: white;
-            border: none;
-            padding: 16px 32px;
+            padding: 48px 24px;
+            background: rgba(15, 23, 42, 0.4);
             border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 24px;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .generate-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.5);
-        }
-
-        .generate-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+            margin-bottom: 32px;
         }
 
         .source-summary {
             background: rgba(15, 23, 42, 0.5);
             border: 1px solid rgba(148, 163, 184, 0.1);
             border-radius: 12px;
-            padding: 32px;
-            margin-bottom: 48px;
-        }
-
-        .source-summary h3 {
-            font-size: 14px;
-            font-weight: 600;
-            color: #94A3B8;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            padding: 24px;
+            margin-bottom: 32px;
         }
 
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
+            gap: 20px;
+            margin-top: 16px;
         }
 
         .summary-item {
             background: rgba(15, 23, 42, 0.8);
-            padding: 16px;
-            border-radius: 8px;
+            padding: 12px 16px;
+            border-radius: 6px;
         }
 
         .summary-label {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
             color: #64748B;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: 0.5px;
         }
 
         .summary-value {
-            font-size: 14px;
+            font-size: 13px;
             color: #E2E8F0;
             line-height: 1.5;
         }
@@ -432,17 +519,6 @@
             flex: 1;
         }
 
-        .epic-title-input {
-            font-size: 18px;
-            font-weight: 600;
-            color: #F8FAFC;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            border-radius: 6px;
-            padding: 8px 12px;
-            width: 100%;
-        }
-
         .epic-description {
             color: #94A3B8;
             font-size: 14px;
@@ -450,19 +526,8 @@
             line-height: 1.6;
         }
 
-        .epic-description-input {
-            color: #E2E8F0;
-            font-size: 14px;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            border-radius: 6px;
-            padding: 12px;
-            width: 100%;
-            min-height: 80px;
-        }
-
         .stories-header {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: #64748B;
             text-transform: uppercase;
@@ -478,7 +543,6 @@
             padding: 16px;
             margin-bottom: 12px;
             border-radius: 6px;
-            position: relative;
         }
 
         .story-card.rejected {
@@ -513,33 +577,10 @@
             flex: 1;
         }
 
-        .story-title-input {
-            font-size: 14px;
-            font-weight: 600;
-            color: #E2E8F0;
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            border-radius: 4px;
-            padding: 6px 10px;
-            width: 100%;
-        }
-
         .story-description {
             color: #94A3B8;
             font-size: 13px;
             line-height: 1.5;
-            margin-left: 30px;
-        }
-
-        .story-description-input {
-            color: #E2E8F0;
-            font-size: 13px;
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            border-radius: 4px;
-            padding: 8px 10px;
-            width: 100%;
-            min-height: 60px;
             margin-left: 30px;
         }
 
@@ -564,49 +605,134 @@
             display: flex;
             gap: 12px;
             margin-top: 32px;
+        }
+
+        /* Report Card Styles */
+        .kpi-performance-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-metric-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #F8FAFC;
+            margin-bottom: 16px;
+        }
+
+        .kpi-values {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
         }
 
-        .secondary-btn {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            color: #E2E8F0;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 14px;
+        .kpi-value-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .kpi-value-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #64748B;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-value-number {
+            font-size: 20px;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+            color: #E2E8F0;
         }
 
-        .secondary-btn:hover {
-            border-color: #60A5FA;
-            background: rgba(59, 130, 246, 0.1);
+        .kpi-arrow {
+            color: #60A5FA;
+            font-size: 20px;
+            margin: 0 8px;
         }
 
+        .progress-bar-container {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 8px;
+            height: 8px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%);
+            transition: width 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .progress-percentage {
+            font-size: 11px;
+            color: #94A3B8;
+            margin-top: 8px;
+        }
+
+        .learnings-section {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .learning-field {
+            margin-bottom: 24px;
+        }
+
+        .learning-field:last-child {
+            margin-bottom: 0;
+        }
+
+        .learning-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #CBD5E1;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .status-select {
+            width: 300px;
+            max-width: 100%;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            body {
-                padding: 40px 16px;
+            .sidebar {
+                transform: translateX(-280px);
             }
 
-            .brief-container {
-                padding: 32px 24px;
+            .sidebar.open {
+                transform: translateX(0);
             }
 
-            .header h1 {
-                font-size: 32px;
+            .main-content {
+                margin-left: 0;
             }
 
-            .meta-grid {
+            .content-body {
+                padding: 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stakeholder-row {
                 grid-template-columns: 1fr;
             }
 
             .kpi-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .stakeholder-row {
                 grid-template-columns: 1fr;
             }
 
@@ -617,317 +743,400 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Living Product Brief</h1>
-            
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('brief')">Brief</button>
-                <button class="tab-btn" onclick="switchTab('requirements')">Requirements</button>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Living Product Brief</div>
             </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item active" onclick="navigateTo('overview')">Overview</div>
+                <div class="nav-item" onclick="navigateTo('problem')">Problem & Impact</div>
+                <div class="nav-item" onclick="navigateTo('personas')">Users & Personas</div>
+                <div class="nav-item" onclick="navigateTo('value')">Value & KPIs</div>
+                <div class="nav-item" onclick="navigateTo('stakeholders')">Stakeholders</div>
+                <div class="nav-item" onclick="navigateTo('features')">Features</div>
+                <div class="nav-item" onclick="navigateTo('requirements')">Requirements</div>
+                <div class="nav-item" onclick="navigateTo('reportcard')">Report Card</div>
+            </nav>
         </div>
 
-        <!-- Brief Tab -->
-        <div class="brief-container" id="brief-tab">
-            <span class="status-badge" id="status-badge">Draft</span>
-            
-            <input 
-                type="text" 
-                class="title-input" 
-                placeholder="Project Title"
-                id="project-title"
-                oninput="autosave()"
-            >
-            
-            <div class="meta-grid">
-                <div class="meta-item">
-                    <div class="meta-label">Owner</div>
-                    <input type="text" placeholder="PM Name" id="owner" oninput="autosave()">
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Target Quarter</div>
-                    <input type="text" placeholder="Q1 2026" id="target-quarter" oninput="autosave()">
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Priority</div>
-                    <select id="priority" onchange="autosave()">
-                        <option value="">Select Priority</option>
-                        <option value="p0">P0 - Must Have</option>
-                        <option value="p1">P1 - Should Have</option>
-                        <option value="p2">P2 - Nice to Have</option>
-                    </select>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Est. Value</div>
-                    <input type="text" placeholder="$450K/year" id="value" oninput="autosave()">
-                </div>
-            </div>
-
-            <!-- Problem & Impact -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Problem & Impact</h2>
-                    <p class="section-subtitle">What's broken and why does it matter?</p>
-                </div>
-                <div class="field">
-                    <div class="field-label">
-                        Problem & Quantified Impact
-                        <button class="ai-suggest" onclick="aiSuggestExample('problem')">✨ AI Suggest</button>
-                    </div>
-                    <textarea 
-                        id="problem-statement" 
-                        placeholder="What's broken or missing? Include quantified impact (e.g., '85% of users ignore dashboard, costing $200K/year in missed insights')"
-                        style="min-height: 120px;"
-                        oninput="autosave()"
-                    ></textarea>
-                    <input 
-                        type="hidden" 
-                        id="problem-impact"
-                    >
-                </div>
-            </div>
-
-            <!-- Personas -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Target Users & Personas</h2>
-                    <p class="section-subtitle">Who are we building this for? Be specific.</p>
-                </div>
-                
-                <div class="warning-box">
-                    <strong>Key Question:</strong> "All users" is not an answer.
-                </div>
-
-                <div class="field">
-                    <div class="field-label">
-                        Persona - Key Insights
-                        <button class="ai-suggest" onclick="aiSuggestExample('personas')">✨ AI Suggest</button>
-                    </div>
-                    <textarea 
-                        id="persona-insights" 
-                        placeholder="Who are they? What are their goals, pain points, and behaviors? What have you learned from research?"
-                        style="min-height: 120px;"
-                        oninput="autosave()"
-                    ></textarea>
-                </div>
-
-                <div class="field">
-                    <div class="field-label">Persona - What Success Looks Like</div>
-                    <textarea 
-                        id="persona-success" 
-                        placeholder="From the user's perspective, what does success look like? Be specific and concrete."
-                        style="min-height: 80px;"
-                        oninput="autosave()"
-                    ></textarea>
-                </div>
-            </div>
-
-            <!-- Business Value -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Business Value</h2>
-                    <p class="section-subtitle">What's the value if we solve this? Keep it brief.</p>
-                </div>
-                <div class="field">
-                    <div class="field-label">
-                        Expected Business Impact
-                        <button class="ai-suggest" onclick="aiSuggestExample('opportunity')">✨ AI Suggest</button>
-                    </div>
-                    <input 
-                        type="text" 
-                        id="opportunity-statement" 
-                        placeholder="e.g., Increase engagement 4x, reduce support tickets 40%, save $450K/year"
-                        oninput="autosave()"
-                    >
-                </div>
-            </div>
-
-            <!-- KPI -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Key Performance Indicator</h2>
-                    <p class="section-subtitle">How will we measure success? Results will be updated after launch.</p>
-                </div>
-
-                <div class="field">
-                    <div class="field-label">
-                        Primary Success Metric
-                        <button class="ai-suggest" onclick="aiSuggestExample('kpi')">✨ AI Suggest</button>
-                    </div>
-                    <div class="kpi-grid">
-                        <div>
-                            <input 
-                                type="text" 
-                                placeholder="Metric name (e.g., Daily Active Users)" 
-                                id="kpi1-name"
-                                oninput="autosave()"
-                            >
-                        </div>
-                        <div>
-                            <div class="kpi-label">Baseline</div>
-                            <input 
-                                type="text" 
-                                placeholder="15%" 
-                                id="kpi1-baseline"
-                                oninput="autosave()"
-                            >
-                        </div>
-                        <div>
-                            <div class="kpi-label">Target</div>
-                            <input 
-                                type="text" 
-                                placeholder="60%" 
-                                id="kpi1-target"
-                                oninput="autosave()"
-                            >
-                        </div>
-                        <div>
-                            <div class="kpi-label disabled">Results</div>
-                            <input 
-                                type="text" 
-                                placeholder="TBD" 
-                                id="kpi1-results"
-                                class="disabled-result"
-                            >
-                        </div>
-                    </div>
-                    <div style="margin-top: 12px;">
-                        <input 
-                            type="text" 
-                            placeholder="How measured? Timeline? (e.g., Google Analytics, within 3 months)" 
-                            id="kpi1-method"
-                            oninput="autosave()"
-                        >
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stakeholders -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Stakeholders</h2>
-                    <p class="section-subtitle">Who needs to approve and who should be consulted?</p>
-                </div>
-                
-                <div class="warning-box">
-                    <strong>Critical:</strong> The #1 reason projects fail is misalignment. Map early.
-                </div>
-
-                <div class="field">
-                    <div class="field-label">
-                        Decision Makers (Must Approve)
-                        <button class="ai-suggest" onclick="aiSuggestExample('stakeholders')">✨ AI Suggest</button>
-                    </div>
-                    <div class="stakeholder-row">
-                        <input type="text" placeholder="Name" id="dm1-name" oninput="autosave()">
-                        <input type="text" placeholder="Role" id="dm1-role" oninput="autosave()">
-                        <select id="dm1-status" onchange="autosave()">
-                            <option value="">Status</option>
-                            <option value="aligned">Aligned</option>
-                            <option value="pending">Pending</option>
-                            <option value="concerns">Concerns</option>
-                        </select>
-                    </div>
-                    <div class="stakeholder-row">
-                        <input type="text" placeholder="Name" id="dm2-name" oninput="autosave()">
-                        <input type="text" placeholder="Role" id="dm2-role" oninput="autosave()">
-                        <select id="dm2-status" onchange="autosave()">
-                            <option value="">Status</option>
-                            <option value="aligned">Aligned</option>
-                            <option value="pending">Pending</option>
-                            <option value="concerns">Concerns</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="field-label">SMEs / Consulted</div>
-                    <input 
-                        type="text" 
-                        placeholder="Who needs to provide input? (e.g., Design team, Engineering, Data team, Legal, Security...)" 
-                        id="smes-consulted"
-                        oninput="autosave()"
-                    >
-                </div>
-            </div>
-
-            <!-- Features -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Key Features</h2>
-                    <p class="section-subtitle">What are we building? High-level overview.</p>
-                </div>
-                <div class="field">
-                    <textarea 
-                        id="features-summary" 
-                        placeholder="List 3-5 key features..."
-                        style="min-height: 120px;"
-                        oninput="autosave()"
-                    ></textarea>
-                </div>
-            </div>
-        </div>
-
-        <!-- Requirements Tab -->
-        <div class="brief-container" id="requirements-tab" style="display: none;">
-            <div class="requirements-header">
-                <h2 class="section-title">Generate Requirements</h2>
-                <p class="section-subtitle">AI will analyze your brief and generate epics and user stories</p>
-                
-                <button class="generate-btn" onclick="generateRequirements()" id="generate-btn">
-                    <span class="btn-icon">✨</span>
-                    Generate Epics & Stories
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <div class="content-header">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()">
+                    <span id="toggleIcon">⊟</span> Menu
                 </button>
             </div>
 
-            <!-- Source Summary -->
-            <div class="source-summary" id="source-summary">
-                <h3>Using Brief Data:</h3>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <div class="summary-label">Project</div>
-                        <div class="summary-value" id="sum-title">—</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">KPI</div>
-                        <div class="summary-value" id="sum-kpi">—</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">Priority</div>
-                        <div class="summary-value" id="sum-priority">—</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">Features</div>
-                        <div class="summary-value" id="sum-features">—</div>
+            <div class="content-body">
+                <!-- Overview Page -->
+                <div class="page active" id="page-overview">
+                    <div class="page-title">Overview</div>
+                    <div class="page-subtitle">Project metadata and key information</div>
+                    
+                    <div style="margin-top: 32px;">
+                        <input 
+                            type="text" 
+                            class="title-input" 
+                            placeholder="Project Title"
+                            id="project-title"
+                            oninput="autosave()"
+                        >
+                        
+                        <div class="form-grid">
+                            <div class="form-field">
+                                <label class="field-label">Owner</label>
+                                <input type="text" placeholder="PM Name" id="owner" oninput="autosave()">
+                            </div>
+                            <div class="form-field">
+                                <label class="field-label">Target Quarter</label>
+                                <input type="text" placeholder="Q1 2026" id="target-quarter" oninput="autosave()">
+                            </div>
+                            <div class="form-field">
+                                <label class="field-label">Priority</label>
+                                <select id="priority" onchange="autosave()">
+                                    <option value="">Select Priority</option>
+                                    <option value="p0">P0 - Must Have</option>
+                                    <option value="p1">P1 - Should Have</option>
+                                    <option value="p2">P2 - Nice to Have</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label class="field-label">Est. Value</label>
+                                <select id="value" onchange="autosave()">
+                                    <option value="">Select Value</option>
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Loading State -->
-            <div id="loading-state" style="display: none;">
-                <div class="loading-spinner"></div>
-                <p class="loading-text">Analyzing brief and generating requirements...</p>
-            </div>
-
-            <!-- Error State -->
-            <div id="error-state" style="display: none;">
-                <div class="error-box" id="error-message"></div>
-            </div>
-
-            <!-- Generated Requirements -->
-            <div id="generated-requirements" style="display: none;">
-                <div class="requirements-output">
-                    <h3 class="output-title" style="font-size: 20px; font-weight: 600; color: #F8FAFC; margin-bottom: 32px;">Generated Epics & User Stories</h3>
+                <!-- Problem & Impact Page -->
+                <div class="page" id="page-problem">
+                    <div class="page-title">Problem & Impact</div>
+                    <div class="page-subtitle">What are you solving and how will you know when it's done?</div>
                     
-                    <div id="epics-container"></div>
+                    <div style="margin-top: 32px;">
+                        <div class="form-field">
+                            <label class="field-label">Problem & Quantified Impact</label>
+                            <textarea 
+                                id="problem-statement" 
+                                placeholder="What's broken or missing? Include quantified impact (e.g., '85% of users ignore dashboard, costing $200K/year in missed insights')"
+                                style="min-height: 200px;"
+                                oninput="autosave()"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users & Personas Page -->
+                <div class="page" id="page-personas">
+                    <div class="page-title">Users & Personas</div>
+                    <div class="page-subtitle">Who are we building this for? Be specific.</div>
                     
-                    <div class="action-buttons">
-                        <button class="secondary-btn" onclick="exportToMarkdown()">
-                            📄 Export to Markdown
+                    <div style="margin-top: 32px;">
+                        <div class="info-box">
+                            <strong>Key Question:</strong> "All users" is not an answer.
+                        </div>
+
+                        <div class="form-field">
+                            <label class="field-label">Persona Name</label>
+                            <input 
+                                type="text" 
+                                id="persona-name" 
+                                placeholder="e.g., Sarah Chen, Account Manager at mid-market SaaS companies"
+                                oninput="autosave()"
+                            >
+                        </div>
+
+                        <div class="form-field">
+                            <label class="field-label">Key Insights</label>
+                            <textarea 
+                                id="persona-insights" 
+                                placeholder="Who are they? What are their goals, pain points, and behaviors? What have you learned from research?"
+                                style="min-height: 160px;"
+                                oninput="autosave()"
+                            ></textarea>
+                        </div>
+
+                        <div class="form-field">
+                            <label class="field-label">What Success Looks Like</label>
+                            <textarea 
+                                id="persona-success" 
+                                placeholder="From the user's perspective, what does success look like? Be specific and concrete."
+                                style="min-height: 100px;"
+                                oninput="autosave()"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Value & KPIs Page -->
+                <div class="page" id="page-value">
+                    <div class="page-title">Value & KPIs</div>
+                    <div class="page-subtitle">Business value and success metrics</div>
+                    
+                    <div style="margin-top: 32px;">
+                        <div class="form-section">
+                            <div class="section-label">Business Value</div>
+                            <div class="form-field">
+                                <label class="field-label">Expected Business Impact</label>
+                                <input 
+                                    type="text" 
+                                    id="opportunity-statement" 
+                                    placeholder="e.g., Increase engagement 4x, reduce support tickets 40%, save $450K/year"
+                                    oninput="autosave()"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <div class="section-label">Key Performance Indicator</div>
+                            <div class="info-box">
+                                How will we measure success? Results will be updated after launch.
+                            </div>
+                            
+                            <div class="form-field">
+                                <label class="field-label">Primary Success Metric</label>
+                                <div class="kpi-grid">
+                                    <div>
+                                        <input 
+                                            type="text" 
+                                            placeholder="Metric name (e.g., Daily Active Users)" 
+                                            id="kpi1-name"
+                                            oninput="autosave()"
+                                        >
+                                    </div>
+                                    <div>
+                                        <div class="kpi-label">Baseline</div>
+                                        <input 
+                                            type="text" 
+                                            placeholder="15%" 
+                                            id="kpi1-baseline"
+                                            oninput="autosave()"
+                                        >
+                                    </div>
+                                    <div>
+                                        <div class="kpi-label">Target</div>
+                                        <input 
+                                            type="text" 
+                                            placeholder="60%" 
+                                            id="kpi1-target"
+                                            oninput="autosave()"
+                                        >
+                                    </div>
+                                    <div>
+                                        <div class="kpi-label">Results</div>
+                                        <input 
+                                            type="text" 
+                                            placeholder="TBD" 
+                                            id="kpi1-results"
+                                            class="disabled-result"
+                                        >
+                                    </div>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    placeholder="How measured? Timeline? (e.g., Google Analytics, within 3 months)" 
+                                    id="kpi1-method"
+                                    oninput="autosave()"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stakeholders Page -->
+                <div class="page" id="page-stakeholders">
+                    <div class="page-title">Stakeholders</div>
+                    <div class="page-subtitle">Who needs to approve and who should be consulted?</div>
+                    
+                    <div style="margin-top: 32px;">
+                        <div class="info-box">
+                            <strong>Critical:</strong> The #1 reason projects fail is misalignment. Map early.
+                        </div>
+
+                        <div class="form-section">
+                            <div class="section-label">Decision Makers (Must Approve)</div>
+                            <div class="stakeholder-row">
+                                <input type="text" placeholder="Name" id="dm1-name" oninput="autosave()">
+                                <input type="text" placeholder="Role" id="dm1-role" oninput="autosave()">
+                                <select id="dm1-status" onchange="autosave()">
+                                    <option value="">Status</option>
+                                    <option value="aligned">Aligned</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="concerns">Concerns</option>
+                                </select>
+                            </div>
+                            <div class="stakeholder-row">
+                                <input type="text" placeholder="Name" id="dm2-name" oninput="autosave()">
+                                <input type="text" placeholder="Role" id="dm2-role" oninput="autosave()">
+                                <select id="dm2-status" onchange="autosave()">
+                                    <option value="">Status</option>
+                                    <option value="aligned">Aligned</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="concerns">Concerns</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <div class="section-label">SMEs / Consulted</div>
+                            <div class="form-field">
+                                <input 
+                                    type="text" 
+                                    placeholder="Who needs to provide input? (e.g., Design team, Engineering, Data team, Legal, Security...)" 
+                                    id="smes-consulted"
+                                    oninput="autosave()"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Page -->
+                <div class="page" id="page-features">
+                    <div class="page-title">Features</div>
+                    <div class="page-subtitle">What are we building? Define as user stories.</div>
+                    
+                    <div style="margin-top: 32px;">
+                        <div id="features-container"></div>
+                        
+                        <button class="btn-secondary" onclick="addFeature()" style="margin-top: 16px;">
+                            Add Feature
                         </button>
-                        <button class="secondary-btn" onclick="regenerateRequirements()">
-                            🔄 Regenerate
-                        </button>
+                        
+                        <input type="hidden" id="features-summary">
+                    </div>
+                </div>
+
+                <!-- Requirements Page -->
+                <div class="page" id="page-requirements">
+                    <div class="page-title">Requirements</div>
+                    <div class="page-subtitle">AI-generated epics and user stories</div>
+                    
+                    <div style="margin-top: 32px;">
+                        <div class="source-summary">
+                            <div class="section-label">Using Brief Data</div>
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <div class="summary-label">Project</div>
+                                    <div class="summary-value" id="sum-title">—</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">KPI</div>
+                                    <div class="summary-value" id="sum-kpi">—</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Priority</div>
+                                    <div class="summary-value" id="sum-priority">—</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Features</div>
+                                    <div class="summary-value" id="sum-features">—</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="generate-section">
+                            <button class="btn-primary" onclick="generateRequirements()" id="generate-btn">
+                                Generate Epics & Stories
+                            </button>
+                        </div>
+
+                        <div id="loading-state" style="display: none;">
+                            <div class="loading-spinner"></div>
+                            <p class="loading-text">Analyzing brief and generating requirements...</p>
+                        </div>
+
+                        <div id="error-state" style="display: none;">
+                            <div class="error-box" id="error-message"></div>
+                        </div>
+
+                        <div id="generated-requirements" style="display: none;">
+                            <div id="epics-container"></div>
+                            
+                            <div class="action-buttons">
+                                <button class="btn-secondary" onclick="exportToMarkdown()">
+                                    Export to Markdown
+                                </button>
+                                <button class="btn-secondary" onclick="regenerateRequirements()">
+                                    Regenerate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report Card Page -->
+                <div class="page" id="page-reportcard">
+                    <div class="page-title">Report Card</div>
+                    <div class="page-subtitle">How is your feature performing?</div>
+                    
+                    <div style="margin-top: 32px;">
+                        <div class="form-section">
+                            <div class="section-label">Status</div>
+                            <select id="feature-status" onchange="autosave()" class="status-select">
+                                <option value="">Select Status</option>
+                                <option value="planning">Planning</option>
+                                <option value="development">In Development</option>
+                                <option value="launched">Launched</option>
+                                <option value="measuring">Measuring</option>
+                                <option value="complete">Complete</option>
+                            </select>
+                        </div>
+
+                        <div class="form-section">
+                            <div class="section-label">KPI Performance</div>
+                            <div class="kpi-performance-card" id="kpi-performance-display">
+                                <!-- Will be populated dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <div class="section-label">Learnings</div>
+                            <div class="learnings-section">
+                                <div class="learning-field">
+                                    <label class="learning-label">What Worked</label>
+                                    <textarea 
+                                        id="learning-worked" 
+                                        placeholder="What exceeded expectations? What tactics, approaches, or decisions drove success?"
+                                        oninput="autosave()"
+                                    ></textarea>
+                                </div>
+
+                                <div class="learning-field">
+                                    <label class="learning-label">What Didn't Work</label>
+                                    <textarea 
+                                        id="learning-didnt-work" 
+                                        placeholder="What fell short? What would you do differently next time?"
+                                        oninput="autosave()"
+                                    ></textarea>
+                                </div>
+
+                                <div class="learning-field">
+                                    <label class="learning-label">What Surprised You</label>
+                                    <textarea 
+                                        id="learning-surprised" 
+                                        placeholder="What unexpected insights did you uncover? What challenged your assumptions?"
+                                        oninput="autosave()"
+                                    ></textarea>
+                                </div>
+
+                                <div class="learning-field">
+                                    <label class="learning-label">Next Steps</label>
+                                    <textarea 
+                                        id="learning-next-steps" 
+                                        placeholder="What actions should be taken based on these learnings?"
+                                        oninput="autosave()"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -937,49 +1146,196 @@
     <script>
         let currentEpics = [];
         let autosaveTimer = null;
+        let features = [];
+        let featureIdCounter = 0;
+        let currentPage = 'overview';
 
-        // Tab switching
-        function switchTab(tab) {
-            const briefTab = document.getElementById('brief-tab');
-            const requirementsTab = document.getElementById('requirements-tab');
-            const tabs = document.querySelectorAll('.tab-btn');
+        // Sidebar Toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('sidebar-collapsed');
+        }
+
+        // Navigation
+        function navigateTo(page) {
+            // Update active page
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page-${page}`).classList.add('active');
             
-            tabs.forEach(t => t.classList.remove('active'));
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            event.target.classList.add('active');
             
-            if (tab === 'brief') {
-                briefTab.style.display = 'block';
-                requirementsTab.style.display = 'none';
-                tabs[0].classList.add('active');
-            } else {
-                briefTab.style.display = 'none';
-                requirementsTab.style.display = 'block';
-                tabs[1].classList.add('active');
+            currentPage = page;
+            
+            // Update source summary if navigating to requirements
+            if (page === 'requirements') {
                 updateSourceSummary();
+            }
+            
+            // Update KPI performance if navigating to report card
+            if (page === 'reportcard') {
+                updateKPIPerformance();
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Report Card Functions
+        function updateKPIPerformance() {
+            const briefData = gatherBriefData();
+            const container = document.getElementById('kpi-performance-display');
+            
+            if (!briefData.kpi.name || !briefData.kpi.baseline || !briefData.kpi.target) {
+                container.innerHTML = '<div class="info-box">Complete the KPI section in Value & KPIs to see performance metrics here.</div>';
+                return;
+            }
+            
+            const actual = briefData.kpi.results || 'TBD';
+            
+            // Calculate progress percentage if we have numeric values
+            let progressPercent = 0;
+            let progressText = 'Not yet measured';
+            
+            if (actual !== 'TBD' && actual !== '') {
+                const baselineNum = parseFloat(briefData.kpi.baseline);
+                const targetNum = parseFloat(briefData.kpi.target);
+                const actualNum = parseFloat(actual);
+                
+                if (!isNaN(baselineNum) && !isNaN(targetNum) && !isNaN(actualNum)) {
+                    const totalChange = targetNum - baselineNum;
+                    const actualChange = actualNum - baselineNum;
+                    progressPercent = Math.round((actualChange / totalChange) * 100);
+                    progressText = `${progressPercent}% of target reached`;
+                }
+            }
+            
+            container.innerHTML = `
+                <div class="kpi-metric-name">${briefData.kpi.name}</div>
+                <div class="kpi-values">
+                    <div class="kpi-value-item">
+                        <span class="kpi-value-label">Baseline</span>
+                        <span class="kpi-value-number">${briefData.kpi.baseline}</span>
+                    </div>
+                    <span class="kpi-arrow">→</span>
+                    <div class="kpi-value-item">
+                        <span class="kpi-value-label">Target</span>
+                        <span class="kpi-value-number">${briefData.kpi.target}</span>
+                    </div>
+                    <span class="kpi-arrow">→</span>
+                    <div class="kpi-value-item">
+                        <span class="kpi-value-label">Actual</span>
+                        <span class="kpi-value-number">${actual}</span>
+                    </div>
+                </div>
+                ${actual !== 'TBD' && actual !== '' ? `
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: ${Math.min(progressPercent, 100)}%"></div>
+                    </div>
+                    <div class="progress-percentage">${progressText}</div>
+                ` : ''}
+            `;
+        }
+
+        // Feature Management
+        function addFeature() {
+            const feature = {
+                id: featureIdCounter++,
+                persona: '',
+                necessity: 'need',
+                action: ''
+            };
+            features.push(feature);
+            renderFeatures();
+            autosave();
+        }
+
+        function removeFeature(id) {
+            features = features.filter(f => f.id !== id);
+            renderFeatures();
+            autosave();
+        }
+
+        function updateFeature(id, field, value) {
+            const feature = features.find(f => f.id === id);
+            if (feature) {
+                feature[field] = value;
+                updateFeaturesHiddenField();
+                autosave();
             }
         }
 
-        // Autosave to localStorage
+        function renderFeatures() {
+            const container = document.getElementById('features-container');
+            if (features.length === 0) {
+                container.innerHTML = '<div class="info-box">No features defined yet. Click "Add Feature" to get started.</div>';
+                return;
+            }
+            
+            // Get custom persona name if defined
+            const customPersonaName = document.getElementById('persona-name').value;
+            const customPersonaOption = customPersonaName 
+                ? `<option value="${customPersonaName}" ${feature.persona === customPersonaName ? 'selected' : ''}>${customPersonaName}</option>`
+                : '';
+            
+            container.innerHTML = features.map((feature, index) => `
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <span class="feature-number">Feature ${index + 1}</span>
+                        <button class="remove-btn" onclick="removeFeature(${feature.id})">Remove</button>
+                    </div>
+                    <div class="feature-story-line">
+                        <span>As a</span>
+                        <select onchange="updateFeature(${feature.id}, 'persona', this.value)">
+                            <option value="">Select persona...</option>
+                            ${customPersonaOption}
+                            <option value="Account Manager" ${feature.persona === 'Account Manager' ? 'selected' : ''}>Account Manager</option>
+                            <option value="Sales Leader" ${feature.persona === 'Sales Leader' ? 'selected' : ''}>Sales Leader</option>
+                            <option value="Data Analyst" ${feature.persona === 'Data Analyst' ? 'selected' : ''}>Data Analyst</option>
+                            <option value="Product Manager" ${feature.persona === 'Product Manager' ? 'selected' : ''}>Product Manager</option>
+                            <option value="Executive" ${feature.persona === 'Executive' ? 'selected' : ''}>Executive</option>
+                            <option value="Customer" ${feature.persona === 'Customer' ? 'selected' : ''}>Customer</option>
+                            <option value="Custom" ${feature.persona === 'Custom' ? 'selected' : ''}>Custom</option>
+                        </select>
+                        <span>, I</span>
+                        <select onchange="updateFeature(${feature.id}, 'necessity', this.value)">
+                            <option value="need" ${feature.necessity === 'need' ? 'selected' : ''}>need</option>
+                            <option value="want" ${feature.necessity === 'want' ? 'selected' : ''}>want</option>
+                            <option value="must" ${feature.necessity === 'must' ? 'selected' : ''}>must</option>
+                        </select>
+                        <span>to be able to:</span>
+                    </div>
+                    <input 
+                        type="text" 
+                        class="feature-action-input"
+                        placeholder="e.g., see client health at a glance without opening multiple tools"
+                        value="${feature.action}"
+                        oninput="updateFeature(${feature.id}, 'action', this.value)"
+                    >
+                </div>
+            `).join('');
+            
+            updateFeaturesHiddenField();
+        }
+
+        function updateFeaturesHiddenField() {
+            const featuresText = features.map((f, i) => 
+                `${i + 1}. As a ${f.persona || '[persona]'}, I ${f.necessity} to be able to ${f.action || '[action]'}`
+            ).join('\n');
+            document.getElementById('features-summary').value = featuresText;
+        }
+
+        // Autosave
         function autosave() {
             clearTimeout(autosaveTimer);
             autosaveTimer = setTimeout(() => {
                 const briefData = gatherBriefData();
                 localStorage.setItem('productBrief', JSON.stringify(briefData));
-                console.log('Autosaved');
             }, 500);
         }
-
-        // Load saved brief on page load
-        window.addEventListener('load', () => {
-            const saved = localStorage.getItem('productBrief');
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    loadBriefData(data);
-                } catch (e) {
-                    console.error('Failed to load saved brief:', e);
-                }
-            }
-        });
 
         function gatherBriefData() {
             return {
@@ -989,7 +1345,7 @@
                 priority: document.getElementById('priority').value,
                 value: document.getElementById('value').value,
                 problemStatement: document.getElementById('problem-statement').value,
-                problemImpact: '', // Now merged into problemStatement
+                personaName: document.getElementById('persona-name').value,
                 personaInsights: document.getElementById('persona-insights').value,
                 personaSuccess: document.getElementById('persona-success').value,
                 opportunity: document.getElementById('opportunity-statement').value,
@@ -1013,7 +1369,17 @@
                     },
                     smes: document.getElementById('smes-consulted').value
                 },
-                features: document.getElementById('features-summary').value
+                features: document.getElementById('features-summary').value,
+                featuresStructured: features,
+                reportCard: {
+                    status: document.getElementById('feature-status').value,
+                    learnings: {
+                        worked: document.getElementById('learning-worked').value,
+                        didntWork: document.getElementById('learning-didnt-work').value,
+                        surprised: document.getElementById('learning-surprised').value,
+                        nextSteps: document.getElementById('learning-next-steps').value
+                    }
+                }
             };
         }
 
@@ -1024,6 +1390,7 @@
             document.getElementById('priority').value = data.priority || '';
             document.getElementById('value').value = data.value || '';
             document.getElementById('problem-statement').value = data.problemStatement || '';
+            document.getElementById('persona-name').value = data.personaName || '';
             document.getElementById('persona-insights').value = data.personaInsights || '';
             document.getElementById('persona-success').value = data.personaSuccess || '';
             document.getElementById('opportunity-statement').value = data.opportunity || '';
@@ -1039,7 +1406,13 @@
             document.getElementById('dm2-role').value = data.stakeholders?.dm2?.role || '';
             document.getElementById('dm2-status').value = data.stakeholders?.dm2?.status || '';
             document.getElementById('smes-consulted').value = data.stakeholders?.smes || '';
-            document.getElementById('features-summary').value = data.features || '';
+            
+            // Load report card data
+            document.getElementById('feature-status').value = data.reportCard?.status || '';
+            document.getElementById('learning-worked').value = data.reportCard?.learnings?.worked || '';
+            document.getElementById('learning-didnt-work').value = data.reportCard?.learnings?.didntWork || '';
+            document.getElementById('learning-surprised').value = data.reportCard?.learnings?.surprised || '';
+            document.getElementById('learning-next-steps').value = data.reportCard?.learnings?.nextSteps || '';
         }
 
         function updateSourceSummary() {
@@ -1061,23 +1434,28 @@
             document.getElementById('sum-features').textContent = featuresPreview;
         }
 
+        // Requirements Generation
         async function generateRequirements() {
             const briefData = gatherBriefData();
             
-            // Validate we have enough data
-            if (!briefData.problemStatement || !briefData.features) {
-                alert('Please fill out at least the Problem Statement and Key Features before generating requirements.');
+            // Validation with specific error messages
+            const missingFields = [];
+            if (!briefData.title) missingFields.push('Project Title (Overview)');
+            if (!briefData.problemStatement) missingFields.push('Problem & Impact');
+            if (!briefData.personaName || !briefData.personaInsights) missingFields.push('Users & Personas');
+            if (!briefData.features || features.length === 0) missingFields.push('Features');
+            
+            if (missingFields.length > 0) {
+                alert(`Please complete these required sections before generating:\n\n${missingFields.map(f => '• ' + f).join('\n')}`);
                 return;
             }
 
-            // Show loading
             document.getElementById('loading-state').style.display = 'block';
             document.getElementById('error-state').style.display = 'none';
             document.getElementById('generated-requirements').style.display = 'none';
             document.getElementById('generate-btn').disabled = true;
 
             try {
-                // Call Netlify function (not Claude API directly)
                 const response = await fetch('/.netlify/functions/generate', {
                     method: 'POST',
                     headers: {
@@ -1093,20 +1471,18 @@
 
                 if (!response.ok) {
                     const error = await response.json();
-                    throw new Error(error.error?.message || error.message || `API Error: ${response.status} ${response.statusText}`);
+                    throw new Error(error.error?.message || error.message || `API Error: ${response.status}`);
                 }
 
                 const data = await response.json();
                 const text = data.content[0].text;
                 
-                // Parse JSON response
                 const cleanText = text.replace(/```json|```/g, '').trim();
                 const requirements = JSON.parse(cleanText);
                 
                 currentEpics = requirements.epics;
                 displayEpics(currentEpics);
                 
-                // Hide loading, show results
                 document.getElementById('loading-state').style.display = 'none';
                 document.getElementById('generated-requirements').style.display = 'block';
                 
@@ -1130,9 +1506,9 @@ Title: ${briefData.title}
 Priority: ${briefData.priority}
 
 Problem: ${briefData.problemStatement}
-Impact: ${briefData.problemImpact}
 
-Target Users: ${briefData.personaInsights}
+Target Users: ${briefData.personaName}
+${briefData.personaInsights}
 Success Criteria: ${briefData.personaSuccess}
 
 Business Opportunity: ${briefData.opportunity}
@@ -1176,83 +1552,32 @@ Return ONLY valid JSON in this exact format:
 
         function displayEpics(epics) {
             const container = document.getElementById('epics-container');
-            container.innerHTML = '';
-            
-            epics.forEach((epic, epicIndex) => {
-                const epicCard = document.createElement('div');
-                epicCard.className = 'epic-card';
-                epicCard.innerHTML = `
+            container.innerHTML = epics.map((epic, epicIndex) => `
+                <div class="epic-card">
                     <div class="epic-header">
                         <span class="epic-id">${epic.id}</span>
-                        <div class="epic-title" id="epic-title-${epicIndex}">${epic.title}</div>
+                        <div class="epic-title">${epic.title}</div>
                         <button class="edit-btn" onclick="editEpic(${epicIndex})">Edit</button>
                     </div>
-                    <div class="epic-description" id="epic-desc-${epicIndex}">${epic.description}</div>
+                    <div class="epic-description">${epic.description}</div>
                     
                     <div class="stories-header">User Stories (${epic.stories.length})</div>
-                    <div id="stories-${epicIndex}">
+                    <div>
                         ${epic.stories.map((story, storyIndex) => `
                             <div class="story-card ${story.accepted === false ? 'rejected' : ''}" id="story-${epicIndex}-${storyIndex}">
                                 <div class="story-header">
                                     <input type="checkbox" class="story-checkbox" ${story.accepted !== false ? 'checked' : ''} 
                                            onchange="toggleStory(${epicIndex}, ${storyIndex}, this.checked)">
                                     <span class="story-id">${story.id}</span>
-                                    <div class="story-title" id="story-title-${epicIndex}-${storyIndex}">${story.title}</div>
+                                    <div class="story-title">${story.title}</div>
                                     <button class="edit-btn" onclick="editStory(${epicIndex}, ${storyIndex})">Edit</button>
                                 </div>
-                                <div class="story-description" id="story-desc-${epicIndex}-${storyIndex}">${story.description}</div>
+                                <div class="story-description">${story.description}</div>
                             </div>
                         `).join('')}
                     </div>
-                `;
-                container.appendChild(epicCard);
-            });
-        }
-
-        function editEpic(epicIndex) {
-            const epic = currentEpics[epicIndex];
-            const titleEl = document.getElementById(`epic-title-${epicIndex}`);
-            const descEl = document.getElementById(`epic-desc-${epicIndex}`);
-            
-            titleEl.innerHTML = `<input type="text" class="epic-title-input" value="${epic.title}" id="epic-title-input-${epicIndex}">`;
-            descEl.innerHTML = `<textarea class="epic-description-input" id="epic-desc-input-${epicIndex}">${epic.description}</textarea>`;
-            
-            const titleInput = document.getElementById(`epic-title-input-${epicIndex}`);
-            const descInput = document.getElementById(`epic-desc-input-${epicIndex}`);
-            
-            const save = () => {
-                epic.title = titleInput.value;
-                epic.description = descInput.value;
-                titleEl.textContent = epic.title;
-                descEl.textContent = epic.description;
-            };
-            
-            titleInput.addEventListener('blur', save);
-            descInput.addEventListener('blur', save);
-            titleInput.focus();
-        }
-
-        function editStory(epicIndex, storyIndex) {
-            const story = currentEpics[epicIndex].stories[storyIndex];
-            const titleEl = document.getElementById(`story-title-${epicIndex}-${storyIndex}`);
-            const descEl = document.getElementById(`story-desc-${epicIndex}-${storyIndex}`);
-            
-            titleEl.innerHTML = `<input type="text" class="story-title-input" value="${story.title}" id="story-title-input-${epicIndex}-${storyIndex}">`;
-            descEl.innerHTML = `<textarea class="story-description-input" id="story-desc-input-${epicIndex}-${storyIndex}">${story.description}</textarea>`;
-            
-            const titleInput = document.getElementById(`story-title-input-${epicIndex}-${storyIndex}`);
-            const descInput = document.getElementById(`story-desc-input-${epicIndex}-${storyIndex}`);
-            
-            const save = () => {
-                story.title = titleInput.value;
-                story.description = descInput.value;
-                titleEl.textContent = story.title;
-                descEl.textContent = story.description;
-            };
-            
-            titleInput.addEventListener('blur', save);
-            descInput.addEventListener('blur', save);
-            titleInput.focus();
+                </div>
+            `).join('');
         }
 
         function toggleStory(epicIndex, storyIndex, accepted) {
@@ -1265,111 +1590,70 @@ Return ONLY valid JSON in this exact format:
             }
         }
 
+        function editEpic(epicIndex) {
+            const epic = currentEpics[epicIndex];
+            const titleEl = document.querySelector(`#epics-container .epic-card:nth-child(${epicIndex + 1}) .epic-title`);
+            const descEl = document.querySelector(`#epics-container .epic-card:nth-child(${epicIndex + 1}) .epic-description`);
+            
+            const originalTitle = epic.title;
+            const originalDesc = epic.description;
+            
+            titleEl.innerHTML = `<input type="text" class="epic-title-input" value="${epic.title}" style="width: 100%; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 6px; padding: 8px 12px; color: #F8FAFC; font-size: 18px; font-weight: 600;">`;
+            descEl.innerHTML = `<textarea class="epic-desc-input" style="width: 100%; min-height: 80px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 6px; padding: 12px; color: #E2E8F0; font-size: 14px;">${epic.description}</textarea>`;
+            
+            const titleInput = titleEl.querySelector('input');
+            const descInput = descEl.querySelector('textarea');
+            
+            const save = () => {
+                epic.title = titleInput.value || originalTitle;
+                epic.description = descInput.value || originalDesc;
+                titleEl.textContent = epic.title;
+                descEl.textContent = epic.description;
+            };
+            
+            titleInput.addEventListener('blur', save);
+            descInput.addEventListener('blur', save);
+            titleInput.focus();
+        }
+
+        function editStory(epicIndex, storyIndex) {
+            const story = currentEpics[epicIndex].stories[storyIndex];
+            const storyCard = document.getElementById(`story-${epicIndex}-${storyIndex}`);
+            const titleEl = storyCard.querySelector('.story-title');
+            const descEl = storyCard.querySelector('.story-description');
+            
+            const originalTitle = story.title;
+            const originalDesc = story.description;
+            
+            titleEl.innerHTML = `<input type="text" class="story-title-input" value="${story.title}" style="width: 100%; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 4px; padding: 6px 10px; color: #E2E8F0; font-size: 14px; font-weight: 600;">`;
+            descEl.innerHTML = `<textarea class="story-desc-input" style="width: 100%; min-height: 60px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 4px; padding: 8px 10px; color: #E2E8F0; font-size: 13px; margin-left: 30px;">${story.description}</textarea>`;
+            
+            const titleInput = titleEl.querySelector('input');
+            const descInput = descEl.querySelector('textarea');
+            
+            const save = () => {
+                story.title = titleInput.value || originalTitle;
+                story.description = descInput.value || originalDesc;
+                titleEl.textContent = story.title;
+                descEl.textContent = story.description;
+            };
+            
+            titleInput.addEventListener('blur', save);
+            descInput.addEventListener('blur', save);
+            titleInput.focus();
+        }
+
         function regenerateRequirements() {
             if (confirm('This will generate new requirements and replace the current ones. Continue?')) {
                 generateRequirements();
             }
         }
 
-        function aiSuggestExample(section) {
-            const examples = {
-                problem: "Current dashboard has 15% daily active usage. Users can't see key metrics at a glance - it takes 5+ clicks to find revenue data. This results in 85% of users ignoring the dashboard, costing $200K/year in missed insights and slow decision-making.",
-                
-                personas: "Sarah Chen, Account Manager at mid-market SaaS companies, manages 50+ B2B accounts and needs to stay on top of client health. Her day is packed with meetings and she's often on-the-go between client calls.\n\nKey Goals: Track client health at a glance, spot issues before clients complain, prepare for calls in under 5 minutes, identify upsell opportunities.\n\nPain Points: Data scattered across 5 different tools (Salesforce, Zendesk, billing, analytics, spreadsheets). Creating client health reports takes 2+ hours. Often blindsided by churn because she didn't see warning signs. Can't access data on mobile when traveling.\n\nBehaviors: Checks dashboard 3-4x per day, often on mobile. Morning routine is coffee + dashboard review (needs <10 min). Works from coffee shops, airports, client offices. Needs quick answers for 'how's my account doing?' questions. Prefers visuals over tables.\n\nResearch Insights: Users don't trust real-time data - they verify in spreadsheets (trust issue to address). Mobile usage spikes Monday mornings and Friday afternoons (travel times). 70% of users only look at 4-5 metrics - the rest is noise. Account managers are measured on retention, so leading indicators are crucial.",
-                
-                opportunity: "Increase engagement 4x (15% → 60%), reduce support tickets 40%, enable faster decisions. Est. $450K/year value from reduced churn + improved efficiency.",
-                
-                kpi: {
-                    name: "Daily Active Users",
-                    baseline: "15%",
-                    target: "60%",
-                    method: "Google Analytics, measure within 3 months"
-                },
-                
-                stakeholders: {
-                    dm1: { name: "Sarah Chen", role: "VP Product", status: "aligned" },
-                    dm2: { name: "Michael Rodriguez", role: "CTO", status: "pending" },
-                    smes: "Design team, Engineering, Data team, Legal, Security, Compliance"
-                }
-            };
-            
-            if (section === 'kpi') {
-                document.getElementById('kpi1-name').value = examples.kpi.name;
-                document.getElementById('kpi1-baseline').value = examples.kpi.baseline;
-                document.getElementById('kpi1-target').value = examples.kpi.target;
-                document.getElementById('kpi1-method').value = examples.kpi.method;
-                autosave();
-                return;
-            }
-            
-            if (section === 'stakeholders') {
-                document.getElementById('dm1-name').value = examples.stakeholders.dm1.name;
-                document.getElementById('dm1-role').value = examples.stakeholders.dm1.role;
-                document.getElementById('dm1-status').value = examples.stakeholders.dm1.status;
-                document.getElementById('dm2-name').value = examples.stakeholders.dm2.name;
-                document.getElementById('dm2-role').value = examples.stakeholders.dm2.role;
-                document.getElementById('dm2-status').value = examples.stakeholders.dm2.status;
-                document.getElementById('smes-consulted').value = examples.stakeholders.smes;
-                autosave();
-                return;
-            }
-            
-            if (section === 'personas') {
-                const field = document.getElementById('persona-insights');
-                const text = examples[section];
-                field.value = '';
-                let i = 0;
-                const typeWriter = setInterval(() => {
-                    if (i < text.length) {
-                        field.value += text.charAt(i);
-                        i++;
-                    } else {
-                        clearInterval(typeWriter);
-                        autosave();
-                    }
-                }, 5);
-                return;
-            }
-            
-            const fieldMap = {
-                problem: 'problem-statement',
-                opportunity: 'opportunity-statement'
-            };
-            
-            const fieldId = fieldMap[section];
-            const field = document.getElementById(fieldId);
-            const text = examples[section];
-            
-            if (!field || !text) return;
-            
-            // Opportunity is now a text input, set it directly
-            if (section === 'opportunity') {
-                field.value = text;
-                autosave();
-                return;
-            }
-            
-            // For problem (textarea), use typewriter effect
-            field.value = '';
-            let i = 0;
-            const typeWriter = setInterval(() => {
-                if (i < text.length) {
-                    field.value += text.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(typeWriter);
-                    autosave();
-                }
-            }, 5);
-        }
-
         function exportToMarkdown() {
             const briefData = gatherBriefData();
             
-            // Build comprehensive markdown
             let markdown = `# Product Brief: ${briefData.title}\n\n`;
             
-            // Metadata
             markdown += `**Owner:** ${briefData.owner}\n`;
             markdown += `**Target Quarter:** ${briefData.targetQuarter}\n`;
             markdown += `**Priority:** ${briefData.priority?.toUpperCase()}\n`;
@@ -1377,44 +1661,30 @@ Return ONLY valid JSON in this exact format:
             
             markdown += `---\n\n`;
             
-            // Executive Summary (AI could generate this, but keeping simple for now)
-            markdown += `## Executive Summary\n\n`;
-            markdown += `${briefData.problemStatement}\n\n`;
-            
-            // Problem & Opportunity
             markdown += `## Problem Statement\n\n`;
             markdown += `${briefData.problemStatement}\n\n`;
-            if (briefData.problemImpact) {
-                markdown += `**Impact:** ${briefData.problemImpact}\n\n`;
-            }
             
             markdown += `## Opportunity\n\n`;
             markdown += `${briefData.opportunity}\n\n`;
             
-            // Target Users
             markdown += `## Target Users\n\n`;
+            markdown += `**Persona:** ${briefData.personaName}\n\n`;
             markdown += `${briefData.personaInsights}\n\n`;
             markdown += `**What Success Looks Like:** ${briefData.personaSuccess}\n\n`;
             
-            // Success Metrics
             markdown += `## Success Metrics\n\n`;
             markdown += `**KPI:** ${briefData.kpi.name}\n`;
             markdown += `- Baseline: ${briefData.kpi.baseline}\n`;
             markdown += `- Target: ${briefData.kpi.target}\n`;
-            markdown += `- Measurement: ${briefData.kpi.method}\n`;
-            if (briefData.kpi.results && briefData.kpi.results !== 'TBD') {
-                markdown += `- **Results:** ${briefData.kpi.results}\n`;
-            }
-            markdown += `\n`;
+            markdown += `- Measurement: ${briefData.kpi.method}\n\n`;
             
-            // Stakeholders
             markdown += `## Stakeholders\n\n`;
             markdown += `**Decision Makers:**\n`;
             if (briefData.stakeholders.dm1.name) {
-                markdown += `- ${briefData.stakeholders.dm1.name} (${briefData.stakeholders.dm1.role}) - Status: ${briefData.stakeholders.dm1.status}\n`;
+                markdown += `- ${briefData.stakeholders.dm1.name} (${briefData.stakeholders.dm1.role}) - ${briefData.stakeholders.dm1.status}\n`;
             }
             if (briefData.stakeholders.dm2.name) {
-                markdown += `- ${briefData.stakeholders.dm2.name} (${briefData.stakeholders.dm2.role}) - Status: ${briefData.stakeholders.dm2.status}\n`;
+                markdown += `- ${briefData.stakeholders.dm2.name} (${briefData.stakeholders.dm2.role}) - ${briefData.stakeholders.dm2.status}\n`;
             }
             markdown += `\n`;
             if (briefData.stakeholders.smes) {
@@ -1422,8 +1692,6 @@ Return ONLY valid JSON in this exact format:
             }
             
             markdown += `---\n\n`;
-            
-            // Requirements
             markdown += `# Requirements\n\n`;
             
             currentEpics.forEach(epic => {
@@ -1440,8 +1708,6 @@ Return ONLY valid JSON in this exact format:
                 });
             });
             
-            
-            // Download
             const blob = new Blob([markdown], { type: 'text/markdown' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1451,9 +1717,35 @@ Return ONLY valid JSON in this exact format:
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            
-            alert('Markdown exported! You can now upload this file to Claude to generate executive summaries, status reports, or other artifacts.');
         }
+
+        // Load saved brief on page load
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('productBrief');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    loadBriefData(data);
+                    
+                    if (data.featuresStructured && data.featuresStructured.length > 0) {
+                        features = data.featuresStructured;
+                        featureIdCounter = Math.max(...features.map(f => f.id)) + 1;
+                        renderFeatures();
+                    } else if (features.length === 0) {
+                        addFeature();
+                    }
+                } catch (e) {
+                    console.error('Failed to load saved brief:', e);
+                    if (features.length === 0) {
+                        addFeature();
+                    }
+                }
+            } else {
+                if (features.length === 0) {
+                    addFeature();
+                }
+            }
+        });
     </script>
 </body>
 </html>
