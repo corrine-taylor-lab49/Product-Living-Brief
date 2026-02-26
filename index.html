@@ -685,6 +685,92 @@
             margin-bottom: 24px;
         }
 
+        .metric-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .metric-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .metric-card-fields {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .metric-field-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #64748B;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .persona-metric-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .persona-metric-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .persona-metric-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #F8FAFC;
+        }
+
+        .persona-cohort {
+            font-size: 12px;
+            color: #94A3B8;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+
+        .persona-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+        }
+
+        .persona-stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .persona-stat-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #64748B;
+            letter-spacing: 0.5px;
+        }
+
+        .persona-stat-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #E2E8F0;
+        }
+
         .learning-field {
             margin-bottom: 24px;
         }
@@ -830,6 +916,7 @@
                                 oninput="autosave()"
                             ></textarea>
                         </div>
+                        <button class="btn-secondary" onclick="getAIHelp('problem')" style="margin-top: 16px;">Get Help from Claude</button>
                     </div>
                 </div>
 
@@ -872,6 +959,13 @@
                                 oninput="autosave()"
                             ></textarea>
                         </div>
+
+                        <div style="display: flex; gap: 12px; margin-top: 16px;">
+                            <button class="btn-secondary" onclick="getAIHelp('persona')">Get Help from Claude</button>
+                            <button class="btn-secondary" onclick="savePersona()">Save Persona to Library</button>
+                        </div>
+
+                        <div id="saved-personas-list" style="margin-top: 24px;"></div>
                     </div>
                 </div>
 
@@ -962,26 +1056,8 @@
 
                         <div class="form-section">
                             <div class="section-label">Decision Makers (Must Approve)</div>
-                            <div class="stakeholder-row">
-                                <input type="text" placeholder="Name" id="dm1-name" oninput="autosave()">
-                                <input type="text" placeholder="Role" id="dm1-role" oninput="autosave()">
-                                <select id="dm1-status" onchange="autosave()">
-                                    <option value="">Status</option>
-                                    <option value="aligned">Aligned</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="concerns">Concerns</option>
-                                </select>
-                            </div>
-                            <div class="stakeholder-row">
-                                <input type="text" placeholder="Name" id="dm2-name" oninput="autosave()">
-                                <input type="text" placeholder="Role" id="dm2-role" oninput="autosave()">
-                                <select id="dm2-status" onchange="autosave()">
-                                    <option value="">Status</option>
-                                    <option value="aligned">Aligned</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="concerns">Concerns</option>
-                                </select>
-                            </div>
+                            <div id="stakeholders-container"></div>
+                            <button class="btn-secondary" onclick="addStakeholder()" style="margin-top: 16px;">Add Stakeholder</button>
                         </div>
 
                         <div class="form-section">
@@ -1075,66 +1151,60 @@
                 <!-- Report Card Page -->
                 <div class="page" id="page-reportcard">
                     <div class="page-title">Report Card</div>
-                    <div class="page-subtitle">How is your feature performing?</div>
+                    <div class="page-subtitle">Performance metrics dashboard</div>
                     
                     <div style="margin-top: 32px;">
                         <div class="form-section">
-                            <div class="section-label">Status</div>
-                            <select id="feature-status" onchange="autosave()" class="status-select">
-                                <option value="">Select Status</option>
-                                <option value="planning">Planning</option>
-                                <option value="development">In Development</option>
-                                <option value="launched">Launched</option>
-                                <option value="measuring">Measuring</option>
-                                <option value="complete">Complete</option>
-                            </select>
+                            <div class="section-label">Status & Last Updated</div>
+                            <div class="form-grid">
+                                <div class="form-field">
+                                    <label class="field-label">Status</label>
+                                    <select id="feature-status" onchange="autosave()">
+                                        <option value="">Select Status</option>
+                                        <option value="planning">Planning</option>
+                                        <option value="development">In Development</option>
+                                        <option value="launched">Launched</option>
+                                        <option value="measuring">Measuring</option>
+                                        <option value="complete">Complete</option>
+                                    </select>
+                                </div>
+                                <div class="form-field">
+                                    <label class="field-label">Last Updated</label>
+                                    <input type="date" id="last-updated" oninput="autosave()">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-section">
-                            <div class="section-label">KPI Performance</div>
+                            <div class="section-label">Primary KPI (from brief)</div>
                             <div class="kpi-performance-card" id="kpi-performance-display">
                                 <!-- Will be populated dynamically -->
                             </div>
                         </div>
 
                         <div class="form-section">
-                            <div class="section-label">Learnings</div>
-                            <div class="learnings-section">
-                                <div class="learning-field">
-                                    <label class="learning-label">What Worked</label>
-                                    <textarea 
-                                        id="learning-worked" 
-                                        placeholder="What exceeded expectations? What tactics, approaches, or decisions drove success?"
-                                        oninput="autosave()"
-                                    ></textarea>
-                                </div>
+                            <div class="section-label">Additional Metrics</div>
+                            <div class="info-box">
+                                Track supporting metrics that indicate feature health
+                            </div>
+                            
+                            <div id="additional-metrics-container">
+                                <!-- Metrics will be added dynamically -->
+                            </div>
+                            
+                            <button class="btn-secondary" onclick="addMetric()" style="margin-top: 16px;">
+                                Add Metric
+                            </button>
+                        </div>
 
-                                <div class="learning-field">
-                                    <label class="learning-label">What Didn't Work</label>
-                                    <textarea 
-                                        id="learning-didnt-work" 
-                                        placeholder="What fell short? What would you do differently next time?"
-                                        oninput="autosave()"
-                                    ></textarea>
-                                </div>
-
-                                <div class="learning-field">
-                                    <label class="learning-label">What Surprised You</label>
-                                    <textarea 
-                                        id="learning-surprised" 
-                                        placeholder="What unexpected insights did you uncover? What challenged your assumptions?"
-                                        oninput="autosave()"
-                                    ></textarea>
-                                </div>
-
-                                <div class="learning-field">
-                                    <label class="learning-label">Next Steps</label>
-                                    <textarea 
-                                        id="learning-next-steps" 
-                                        placeholder="What actions should be taken based on these learnings?"
-                                        oninput="autosave()"
-                                    ></textarea>
-                                </div>
+                        <div class="form-section">
+                            <div class="section-label">Persona Performance</div>
+                            <div class="info-box">
+                                Map personas to cohorts and track engagement by user type
+                            </div>
+                            
+                            <div id="persona-metrics-container">
+                                <!-- Persona metrics will be displayed dynamically -->
                             </div>
                         </div>
                     </div>
@@ -1178,6 +1248,8 @@
             // Update KPI performance if navigating to report card
             if (page === 'reportcard') {
                 updateKPIPerformance();
+                renderAdditionalMetrics();
+                renderPersonaMetrics();
             }
             
             // Scroll to top
@@ -1238,6 +1310,254 @@
                     <div class="progress-percentage">${progressText}</div>
                 ` : ''}
             `;
+        }
+
+        // Additional Metrics Management
+        let additionalMetrics = [];
+        let metricIdCounter = 0;
+        let savedPersonas = [];
+        let stakeholders = [];
+        let stakeholderIdCounter = 0;
+
+        function addMetric() {
+            const metric = {
+                id: metricIdCounter++,
+                name: '',
+                baseline: '',
+                current: '',
+                target: ''
+            };
+            additionalMetrics.push(metric);
+            renderAdditionalMetrics();
+            autosave();
+        }
+
+        function removeMetric(id) {
+            additionalMetrics = additionalMetrics.filter(m => m.id !== id);
+            renderAdditionalMetrics();
+            autosave();
+        }
+
+        function updateMetric(id, field, value) {
+            const metric = additionalMetrics.find(m => m.id === id);
+            if (metric) {
+                metric[field] = value;
+                autosave();
+            }
+        }
+
+        function renderAdditionalMetrics() {
+            const container = document.getElementById('additional-metrics-container');
+            if (additionalMetrics.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = additionalMetrics.map((metric, index) => `
+                <div class="metric-card">
+                    <div class="metric-card-header">
+                        <span class="feature-number">Metric ${index + 1}</span>
+                        <button class="remove-btn" onclick="removeMetric(${metric.id})">Remove</button>
+                    </div>
+                    <div class="metric-card-fields">
+                        <div>
+                            <div class="metric-field-label">Metric Name</div>
+                            <input 
+                                type="text" 
+                                placeholder="e.g., Conversion Rate" 
+                                value="${metric.name}"
+                                oninput="updateMetric(${metric.id}, 'name', this.value)"
+                            >
+                        </div>
+                        <div>
+                            <div class="metric-field-label">Baseline</div>
+                            <input 
+                                type="text" 
+                                placeholder="2.3%" 
+                                value="${metric.baseline}"
+                                oninput="updateMetric(${metric.id}, 'baseline', this.value)"
+                            >
+                        </div>
+                        <div>
+                            <div class="metric-field-label">Current</div>
+                            <input 
+                                type="text" 
+                                placeholder="4.1%" 
+                                value="${metric.current}"
+                                oninput="updateMetric(${metric.id}, 'current', this.value)"
+                            >
+                        </div>
+                        <div>
+                            <div class="metric-field-label">Target</div>
+                            <input 
+                                type="text" 
+                                placeholder="5.0%" 
+                                value="${metric.target}"
+                                oninput="updateMetric(${metric.id}, 'target', this.value)"
+                            >
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Persona Metrics
+        function renderPersonaMetrics() {
+            const container = document.getElementById('persona-metrics-container');
+            const briefData = gatherBriefData();
+            
+            if (!briefData.personaName) {
+                container.innerHTML = '<div class="info-box">Define a persona in Users & Personas to track performance by user type.</div>';
+                return;
+            }
+
+            // For now, this is conceptual - showing example structure
+            container.innerHTML = `
+                <div class="persona-metric-card">
+                    <div class="persona-metric-header">
+                        <div class="persona-metric-name">${briefData.personaName}</div>
+                        <div class="persona-cohort">AEM Cohort: (to be configured)</div>
+                    </div>
+                    <div class="persona-stats-grid">
+                        <div class="persona-stat-item">
+                            <span class="persona-stat-label">DAU</span>
+                            <span class="persona-stat-value">—</span>
+                        </div>
+                        <div class="persona-stat-item">
+                            <span class="persona-stat-label">WAU</span>
+                            <span class="persona-stat-value">—</span>
+                        </div>
+                        <div class="persona-stat-item">
+                            <span class="persona-stat-label">Retention</span>
+                            <span class="persona-stat-value">—</span>
+                        </div>
+                        <div class="persona-stat-item">
+                            <span class="persona-stat-label">Conversion</span>
+                            <span class="persona-stat-value">—</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Persona Library
+        function savePersona() {
+            const persona = {
+                name: document.getElementById('persona-name').value,
+                insights: document.getElementById('persona-insights').value,
+                success: document.getElementById('persona-success').value
+            };
+            if (!persona.name) {
+                alert('Please enter a persona name before saving.');
+                return;
+            }
+            savedPersonas.push(persona);
+            renderSavedPersonas();
+            autosave();
+        }
+
+        function loadSavedPersona(index) {
+            const persona = savedPersonas[index];
+            document.getElementById('persona-name').value = persona.name;
+            document.getElementById('persona-insights').value = persona.insights;
+            document.getElementById('persona-success').value = persona.success;
+            autosave();
+        }
+
+        function deleteSavedPersona(index) {
+            savedPersonas.splice(index, 1);
+            renderSavedPersonas();
+            autosave();
+        }
+
+        function renderSavedPersonas() {
+            const container = document.getElementById('saved-personas-list');
+            if (savedPersonas.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="section-label" style="margin-top: 24px;">Saved Personas</div>
+                ${savedPersonas.map((p, i) => `
+                    <div class="feature-card" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="cursor: pointer; flex: 1;" onclick="loadSavedPersona(${i})">
+                            <div style="font-weight: 600; color: #F8FAFC;">${p.name}</div>
+                            <div style="font-size: 12px; color: #94A3B8; margin-top: 4px;">${p.insights.substring(0, 80)}...</div>
+                        </div>
+                        <button class="remove-btn" onclick="deleteSavedPersona(${i})">Delete</button>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        // AI Help
+        async function getAIHelp(type) {
+            alert('AI Help feature coming soon! This will provide guided questions and suggestions to help you craft better content.');
+        }
+
+        // Stakeholder Management
+        function addStakeholder() {
+            const stakeholder = {
+                id: stakeholderIdCounter++,
+                name: '',
+                role: '',
+                status: ''
+            };
+            stakeholders.push(stakeholder);
+            renderStakeholders();
+            autosave();
+        }
+
+        function removeStakeholder(id) {
+            stakeholders = stakeholders.filter(s => s.id !== id);
+            renderStakeholders();
+            autosave();
+        }
+
+        function updateStakeholder(id, field, value) {
+            const stakeholder = stakeholders.find(s => s.id === id);
+            if (stakeholder) {
+                stakeholder[field] = value;
+                autosave();
+            }
+        }
+
+        function renderStakeholders() {
+            const container = document.getElementById('stakeholders-container');
+            if (stakeholders.length === 0) {
+                container.innerHTML = '<div class="info-box">No stakeholders added yet. Click "Add Stakeholder" to get started.</div>';
+                return;
+            }
+
+            container.innerHTML = stakeholders.map((sh, index) => `
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <span class="feature-number">Stakeholder ${index + 1}</span>
+                        <button class="remove-btn" onclick="removeStakeholder(${sh.id})">Remove</button>
+                    </div>
+                    <div class="stakeholder-row">
+                        <input 
+                            type="text" 
+                            placeholder="Name" 
+                            value="${sh.name}"
+                            oninput="updateStakeholder(${sh.id}, 'name', this.value)"
+                        >
+                        <input 
+                            type="text" 
+                            placeholder="Role" 
+                            value="${sh.role}"
+                            oninput="updateStakeholder(${sh.id}, 'role', this.value)"
+                        >
+                        <select onchange="updateStakeholder(${sh.id}, 'status', this.value)">
+                            <option value="">Status</option>
+                            <option value="aligned" ${sh.status === 'aligned' ? 'selected' : ''}>Aligned</option>
+                            <option value="pending" ${sh.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="concerns" ${sh.status === 'concerns' ? 'selected' : ''}>Concerns</option>
+                        </select>
+                    </div>
+                </div>
+            `).join('');
         }
 
         // Feature Management
@@ -1356,29 +1676,15 @@
                     method: document.getElementById('kpi1-method').value,
                     results: document.getElementById('kpi1-results').value
                 },
-                stakeholders: {
-                    dm1: {
-                        name: document.getElementById('dm1-name').value,
-                        role: document.getElementById('dm1-role').value,
-                        status: document.getElementById('dm1-status').value
-                    },
-                    dm2: {
-                        name: document.getElementById('dm2-name').value,
-                        role: document.getElementById('dm2-role').value,
-                        status: document.getElementById('dm2-status').value
-                    },
-                    smes: document.getElementById('smes-consulted').value
-                },
+                stakeholders: stakeholders,
+                smes: document.getElementById('smes-consulted').value,
                 features: document.getElementById('features-summary').value,
                 featuresStructured: features,
+                savedPersonas: savedPersonas,
                 reportCard: {
                     status: document.getElementById('feature-status').value,
-                    learnings: {
-                        worked: document.getElementById('learning-worked').value,
-                        didntWork: document.getElementById('learning-didnt-work').value,
-                        surprised: document.getElementById('learning-surprised').value,
-                        nextSteps: document.getElementById('learning-next-steps').value
-                    }
+                    lastUpdated: document.getElementById('last-updated').value,
+                    additionalMetrics: additionalMetrics
                 }
             };
         }
@@ -1399,20 +1705,33 @@
             document.getElementById('kpi1-target').value = data.kpi?.target || '';
             document.getElementById('kpi1-method').value = data.kpi?.method || '';
             document.getElementById('kpi1-results').value = data.kpi?.results || '';
-            document.getElementById('dm1-name').value = data.stakeholders?.dm1?.name || '';
-            document.getElementById('dm1-role').value = data.stakeholders?.dm1?.role || '';
-            document.getElementById('dm1-status').value = data.stakeholders?.dm1?.status || '';
-            document.getElementById('dm2-name').value = data.stakeholders?.dm2?.name || '';
-            document.getElementById('dm2-role').value = data.stakeholders?.dm2?.role || '';
-            document.getElementById('dm2-status').value = data.stakeholders?.dm2?.status || '';
-            document.getElementById('smes-consulted').value = data.stakeholders?.smes || '';
+            document.getElementById('smes-consulted').value = data.smes || '';
+            
+            // Load stakeholders
+            if (data.stakeholders && Array.isArray(data.stakeholders) && data.stakeholders.length > 0) {
+                stakeholders = data.stakeholders;
+                stakeholderIdCounter = Math.max(...stakeholders.map(s => s.id)) + 1;
+                renderStakeholders();
+            } else if (stakeholders.length === 0) {
+                addStakeholder();
+            }
+            
+            // Load saved personas
+            if (data.savedPersonas && data.savedPersonas.length > 0) {
+                savedPersonas = data.savedPersonas;
+                renderSavedPersonas();
+            }
             
             // Load report card data
             document.getElementById('feature-status').value = data.reportCard?.status || '';
-            document.getElementById('learning-worked').value = data.reportCard?.learnings?.worked || '';
-            document.getElementById('learning-didnt-work').value = data.reportCard?.learnings?.didntWork || '';
-            document.getElementById('learning-surprised').value = data.reportCard?.learnings?.surprised || '';
-            document.getElementById('learning-next-steps').value = data.reportCard?.learnings?.nextSteps || '';
+            document.getElementById('last-updated').value = data.reportCard?.lastUpdated || '';
+            
+            // Load additional metrics
+            if (data.reportCard?.additionalMetrics && data.reportCard.additionalMetrics.length > 0) {
+                additionalMetrics = data.reportCard.additionalMetrics;
+                metricIdCounter = Math.max(...additionalMetrics.map(m => m.id)) + 1;
+                renderAdditionalMetrics();
+            }
         }
 
         function updateSourceSummary() {
@@ -1739,10 +2058,16 @@ Return ONLY valid JSON in this exact format:
                     if (features.length === 0) {
                         addFeature();
                     }
+                    if (stakeholders.length === 0) {
+                        addStakeholder();
+                    }
                 }
             } else {
                 if (features.length === 0) {
                     addFeature();
+                }
+                if (stakeholders.length === 0) {
+                    addStakeholder();
                 }
             }
         });
