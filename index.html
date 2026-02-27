@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0033)https://living-brief.netlify.app/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Living Product Brief</title>
     <style>
@@ -72,6 +72,48 @@
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-completion-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #34D399;
+            flex-shrink: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .nav-completion-dot.visible { opacity: 1; }
+
+        .sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        .new-brief-btn {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            color: #64748B;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .new-brief-btn:hover {
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #F87171;
+            background: rgba(239, 68, 68, 0.05);
         }
 
         .nav-item:hover {
@@ -792,6 +834,466 @@
             max-width: 100%;
         }
 
+        /* AI Icon Button */
+        .ai-icon-btn {
+            background: rgba(96, 165, 250, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.25);
+            color: #60A5FA;
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            vertical-align: middle;
+        }
+        .ai-icon-btn:hover {
+            background: rgba(96, 165, 250, 0.2);
+            border-color: #60A5FA;
+            transform: scale(1.05);
+        }
+        .field-label-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .field-label-row .field-label {
+            margin-bottom: 0;
+        }
+
+        /* Page Navigation Arrows */
+        .page-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 56px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        .nav-arrow-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            color: #94A3B8;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.3px;
+        }
+        .nav-arrow-btn:hover {
+            border-color: rgba(96, 165, 250, 0.4);
+            color: #60A5FA;
+            background: rgba(59, 130, 246, 0.08);
+        }
+        .nav-arrow-btn.next-btn {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.25);
+            color: #93C5FD;
+        }
+        .nav-arrow-btn.next-btn:hover {
+            background: rgba(59, 130, 246, 0.18);
+            border-color: #60A5FA;
+            color: #DBEAFE;
+        }
+        .nav-arrow-btn .arrow-section-name {
+            font-size: 11px;
+            opacity: 0.7;
+            font-weight: 400;
+        }
+        .nav-arrow-spacer { flex: 1; }
+
+        /* Stakeholder Saved State */
+        .stakeholder-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 12px;
+            transition: border-color 0.3s;
+        }
+        .stakeholder-card.is-saved {
+            border-color: rgba(52, 211, 153, 0.2);
+        }
+        .saved-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #34D399;
+            letter-spacing: 0.3px;
+        }
+        .saved-badge svg { flex-shrink: 0; }
+
+        /* Feature Saved State */
+        .feature-saved-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .feature-saved-card:hover {
+            border-color: rgba(96, 165, 250, 0.3);
+            background: rgba(59, 130, 246, 0.05);
+        }
+        .feature-saved-story {
+            flex: 1;
+        }
+        .feature-saved-number {
+            font-size: 10px;
+            font-weight: 700;
+            color: #60A5FA;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .feature-saved-text {
+            font-size: 14px;
+            color: #CBD5E1;
+            line-height: 1.5;
+        }
+        .feature-saved-text em {
+            color: #94A3B8;
+            font-style: italic;
+            font-size: 13px;
+        }
+        .feature-edit-hint {
+            font-size: 11px;
+            color: #475569;
+            flex-shrink: 0;
+            padding-top: 2px;
+        }
+        .feature-editing-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+
+        /* Business Impact Mapping */
+        .impact-metric-map {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-top: 16px;
+        }
+        .impact-map-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .impact-map-arrow {
+            color: #3B82F6;
+            font-size: 16px;
+        }
+        .impact-map-value {
+            font-size: 13px;
+            color: #93C5FD;
+            flex: 1;
+        }
+
+        /* Value & KPIs — new system */
+        .value-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+        .value-card.editing {
+            border-color: rgba(96, 165, 250, 0.3);
+        }
+        .value-card.saved-state {
+            cursor: pointer;
+        }
+        .value-card.saved-state:hover {
+            border-color: rgba(96, 165, 250, 0.3);
+            background: rgba(59, 130, 246, 0.04);
+        }
+        .value-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .value-card-title {
+            font-weight: 600;
+            color: #F8FAFC;
+            font-size: 14px;
+            line-height: 1.5;
+            flex: 1;
+        }
+        .value-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Impact tag chips */
+        .impact-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #93C5FD;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .impact-tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        /* Metric mapping toggle chips (in edit mode) */
+        .impact-toggle-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #94A3B8;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.15s;
+            user-select: none;
+        }
+        .impact-toggle-chip:hover {
+            border-color: rgba(96, 165, 250, 0.4);
+            color: #CBD5E1;
+        }
+        .impact-toggle-chip.selected {
+            color: #DBEAFE;
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(96, 165, 250, 0.5);
+        }
+        .impact-toggle-chip.selected::before {
+            content: '✓';
+            font-size: 10px;
+            color: #60A5FA;
+        }
+        .impact-chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .suggestion-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(96, 165, 250, 0.15);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.15s;
+        }
+        .suggestion-card:hover {
+            border-color: rgba(96, 165, 250, 0.4);
+            background: rgba(59, 130, 246, 0.06);
+        }
+        .suggestion-card.added {
+            border-color: rgba(52, 211, 153, 0.3);
+            background: rgba(52, 211, 153, 0.04);
+            cursor: default;
+            opacity: 0.7;
+        }
+        .suggestion-add-btn {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(96, 165, 250, 0.4);
+            background: transparent;
+            color: #60A5FA;
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+        .suggestion-add-btn:hover { background: rgba(96, 165, 250, 0.15); }
+        .suggestion-add-btn.done {
+            border-color: rgba(52, 211, 153, 0.5);
+            color: #34D399;
+            background: rgba(52, 211, 153, 0.1);
+        }
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+        .kpi-child-row:hover { border-color: rgba(96, 165, 250, 0.25); }
+        .kpi-child-name {
+            font-weight: 600;
+            color: #E2E8F0;
+            font-size: 13px;
+            flex: 1;
+        }
+        .kpi-child-numbers {
+            font-size: 12px;
+            color: #64748B;
+            white-space: nowrap;
+        }
+        .kpi-child-numbers strong { color: #94A3B8; }
+        .kpi-add-form {
+            background: rgba(59, 130, 246, 0.04);
+            border: 1px dashed rgba(96, 165, 250, 0.25);
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 8px;
+        }
+        .kpi-add-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .objective-title-display {
+            font-size: 16px;
+            font-weight: 600;
+            color: #F8FAFC;
+            line-height: 1.4;
+            flex: 1;
+        }
+        .kpi-inline-edit {
+            background: rgba(59, 130, 246, 0.06);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+        .kpi-inline-edit-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        /* Save Confirm Animations */
+        @keyframes savePulse {
+            0% { opacity: 0; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .save-confirmed {
+            animation: savePulse 0.3s ease;
+        }
+
+        /* Last Updated Display (Report Card) */
+        .last-updated-display {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .last-updated-display:hover { border-color: rgba(96, 165, 250, 0.4); }
+        .last-updated-date-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: #E2E8F0;
+        }
+        .last-updated-date-text.empty {
+            color: #475569;
+            font-style: italic;
+            font-weight: 400;
+        }
+        .last-updated-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .last-updated-sublabel {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748B;
+            font-weight: 600;
+        }
+        .last-updated-edit-btn {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #60A5FA;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .last-updated-edit-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #60A5FA;
+        }
+        .last-updated-hidden {
+            display: none !important;
+        }
+
+        /* Persona Inline Edit */
+        .persona-expand-edit {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        .persona-expand-edit .form-field { margin-bottom: 12px; }
+        .persona-expand-edit .form-field:last-child { margin-bottom: 0; }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
@@ -836,15 +1338,21 @@
                 <div class="sidebar-title">Living Product Brief</div>
             </div>
             <nav class="sidebar-nav">
-                <div class="nav-item active" onclick="navigateTo('overview')">Overview</div>
-                <div class="nav-item" onclick="navigateTo('problem')">Problem & Impact</div>
-                <div class="nav-item" onclick="navigateTo('personas')">Users & Personas</div>
-                <div class="nav-item" onclick="navigateTo('value')">Value & KPIs</div>
-                <div class="nav-item" onclick="navigateTo('stakeholders')">Stakeholders</div>
-                <div class="nav-item" onclick="navigateTo('features')">Features</div>
-                <div class="nav-item" onclick="navigateTo('requirements')">Requirements</div>
-                <div class="nav-item" onclick="navigateTo('reportcard')">Report Card</div>
+                <div class="nav-item" id="nav-overview" onclick="navigateTo('overview')">Overview<span class="nav-completion-dot" id="dot-overview"></span></div>
+                <div class="nav-item" id="nav-problem" onclick="navigateTo('problem')">Problem &amp; Impact<span class="nav-completion-dot" id="dot-problem"></span></div>
+                <div class="nav-item" id="nav-personas" onclick="navigateTo('personas')">Users &amp; Personas<span class="nav-completion-dot" id="dot-personas"></span></div>
+                <div class="nav-item" id="nav-value" onclick="navigateTo('value')">Value &amp; KPIs<span class="nav-completion-dot" id="dot-value"></span></div>
+                <div class="nav-item" id="nav-features" onclick="navigateTo('features')">Features<span class="nav-completion-dot" id="dot-features"></span></div>
+                <div class="nav-item" id="nav-stakeholders" onclick="navigateTo('stakeholders')">Stakeholders<span class="nav-completion-dot" id="dot-stakeholders"></span></div>
+                <div class="nav-item" id="nav-requirements" onclick="navigateTo('requirements')">Requirements<span class="nav-completion-dot" id="dot-requirements"></span></div>
+                <div class="nav-item active" id="nav-reportcard" onclick="navigateTo('reportcard')">Report Card<span class="nav-completion-dot" id="dot-reportcard"></span></div>
             </nav>
+            <div class="sidebar-footer">
+                <button class="new-brief-btn" onclick="confirmNewBrief()">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+                    New Brief
+                </button>
+            </div>
         </div>
 
         <!-- Main Content -->
@@ -857,18 +1365,12 @@
 
             <div class="content-body">
                 <!-- Overview Page -->
-                <div class="page active" id="page-overview">
+                <div class="page" id="page-overview">
                     <div class="page-title">Overview</div>
                     <div class="page-subtitle">Project metadata and key information</div>
                     
                     <div style="margin-top: 32px;">
-                        <input 
-                            type="text" 
-                            class="title-input" 
-                            placeholder="Project Title"
-                            id="project-title"
-                            oninput="autosave()"
-                        >
+                        <input type="text" class="title-input" placeholder="Project Title" id="project-title" oninput="autosave()">
                         
                         <div class="form-grid">
                             <div class="form-field">
@@ -898,149 +1400,95 @@
                                 </select>
                             </div>
                         </div>
+                        <div id="page-nav-overview"></div>
                     </div>
                 </div>
 
                 <!-- Problem & Impact Page -->
                 <div class="page" id="page-problem">
-                    <div class="page-title">Problem & Impact</div>
+                    <div class="page-title">Problem &amp; Impact</div>
                     <div class="page-subtitle">What are you solving and how will you know when it's done?</div>
                     
                     <div style="margin-top: 32px;">
                         <div class="form-field">
-                            <label class="field-label">Problem & Quantified Impact</label>
-                            <textarea 
-                                id="problem-statement" 
-                                placeholder="What's broken or missing? Include quantified impact (e.g., '85% of users ignore dashboard, costing $200K/year in missed insights')"
-                                style="min-height: 200px;"
-                                oninput="autosave()"
-                            ></textarea>
+                            <div class="field-label-row">
+                                <label class="field-label">Problem &amp; Quantified Impact</label>
+                                <button class="ai-icon-btn" onclick="getAIHelp('problem')" title="Get help from Claude">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2L14 9.5L21.5 12L14 14.5L12 22L10 14.5L2.5 12L10 9.5L12 2Z" fill="#60A5FA"/><path d="M19.5 2L20.5 5.5L24 6.5L20.5 7.5L19.5 11L18.5 7.5L15 6.5L18.5 5.5L19.5 2Z" fill="#93C5FD" opacity="0.8"/></svg>
+                                </button>
+                            </div>
+                            <textarea id="problem-statement" placeholder="What's broken or missing? Include quantified impact (e.g., '85% of users ignore dashboard, costing $200K/year in missed insights')" style="min-height: 200px;" oninput="autosave()"></textarea>
                         </div>
-                        <button class="btn-secondary" onclick="getAIHelp('problem')" style="margin-top: 16px;">Get Help from Claude</button>
+                        <div id="page-nav-problem"></div>
                     </div>
                 </div>
 
                 <!-- Users & Personas Page -->
                 <div class="page" id="page-personas">
-                    <div class="page-title">Users & Personas</div>
+                    <div class="page-title">Users &amp; Personas</div>
                     <div class="page-subtitle">Who are we building this for? Be specific.</div>
                     
                     <div style="margin-top: 32px;">
                         <div class="info-box">
-                            <strong>Key Question:</strong> "All users" is not an answer.
+                            <strong>Key Question:</strong> "All users" is not an answer. Define one primary persona below — the person whose life this brief is most trying to improve. You can save multiple personas to the library and switch between them.
                         </div>
+
+                        <div class="section-label">Primary Persona</div>
 
                         <div class="form-field">
                             <label class="field-label">Persona Name</label>
-                            <input 
-                                type="text" 
-                                id="persona-name" 
-                                placeholder="e.g., Sarah Chen, Account Manager at mid-market SaaS companies"
-                                oninput="autosave()"
-                            >
+                            <input type="text" id="persona-name" placeholder="e.g., Sarah Chen, Account Manager at mid-market SaaS companies" oninput="autosave()">
                         </div>
 
                         <div class="form-field">
-                            <label class="field-label">Key Insights</label>
-                            <textarea 
-                                id="persona-insights" 
-                                placeholder="Who are they? What are their goals, pain points, and behaviors? What have you learned from research?"
-                                style="min-height: 160px;"
-                                oninput="autosave()"
-                            ></textarea>
+                            <div class="field-label-row">
+                                <label class="field-label">Key Insights</label>
+                                <button class="ai-icon-btn" onclick="getAIHelp('persona')" title="Get help from Claude">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2L14 9.5L21.5 12L14 14.5L12 22L10 14.5L2.5 12L10 9.5L12 2Z" fill="#60A5FA"/><path d="M19.5 2L20.5 5.5L24 6.5L20.5 7.5L19.5 11L18.5 7.5L15 6.5L18.5 5.5L19.5 2Z" fill="#93C5FD" opacity="0.8"/></svg>
+                                </button>
+                            </div>
+                            <textarea id="persona-insights" placeholder="Who are they? What are their goals, pain points, and behaviors? What have you learned from research?" style="min-height: 160px;" oninput="autosave()"></textarea>
                         </div>
 
                         <div class="form-field">
-                            <label class="field-label">What Success Looks Like</label>
-                            <textarea 
-                                id="persona-success" 
-                                placeholder="From the user's perspective, what does success look like? Be specific and concrete."
-                                style="min-height: 100px;"
-                                oninput="autosave()"
-                            ></textarea>
+                            <div class="field-label-row">
+                                <label class="field-label">What Success Looks Like</label>
+                                <button class="ai-icon-btn" onclick="getAIHelp('persona-success')" title="Get help from Claude">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2L14 9.5L21.5 12L14 14.5L12 22L10 14.5L2.5 12L10 9.5L12 2Z" fill="#60A5FA"/><path d="M19.5 2L20.5 5.5L24 6.5L20.5 7.5L19.5 11L18.5 7.5L15 6.5L18.5 5.5L19.5 2Z" fill="#93C5FD" opacity="0.8"/></svg>
+                                </button>
+                            </div>
+                            <textarea id="persona-success" placeholder="From the user's perspective, what does success look like? Be specific and concrete." style="min-height: 100px;" oninput="autosave()"></textarea>
                         </div>
 
-                        <div style="display: flex; gap: 12px; margin-top: 16px;">
-                            <button class="btn-secondary" onclick="getAIHelp('persona')">Get Help from Claude</button>
-                            <button class="btn-secondary" onclick="savePersona()">Save Persona to Library</button>
+                        <div style="display: flex; gap: 12px; margin-top: 4px; margin-bottom: 32px;">
+                            <button class="btn-secondary" onclick="savePersona()" style="font-size:12px; padding:9px 18px;">Save to Library</button>
                         </div>
 
                         <div id="saved-personas-list" style="margin-top: 24px;"></div>
+                        <div id="page-nav-personas"></div>
                     </div>
                 </div>
 
                 <!-- Value & KPIs Page -->
                 <div class="page" id="page-value">
-                    <div class="page-title">Value & KPIs</div>
-                    <div class="page-subtitle">Business value and success metrics</div>
+                    <div class="page-title">Value &amp; KPIs</div>
+                    <div class="page-subtitle">Business objectives and how you'll measure them</div>
                     
                     <div style="margin-top: 32px;">
                         <div class="form-section">
-                            <div class="section-label">Business Value</div>
-                            <div class="form-field">
-                                <label class="field-label">Expected Business Impact</label>
-                                <input 
-                                    type="text" 
-                                    id="opportunity-statement" 
-                                    placeholder="e.g., Increase engagement 4x, reduce support tickets 40%, save $450K/year"
-                                    oninput="autosave()"
-                                >
-                            </div>
+                            <div class="info-box">Add a business objective, then attach the KPIs that measure it.</div>
+                            <div id="objectives-container"></div>
+                            <button class="btn-secondary" onclick="addObjective()" style="margin-top: 12px;">+ Add Objective</button>
                         </div>
 
-                        <div class="form-section">
-                            <div class="section-label">Key Performance Indicator</div>
-                            <div class="info-box">
-                                How will we measure success? Results will be updated after launch.
-                            </div>
-                            
-                            <div class="form-field">
-                                <label class="field-label">Primary Success Metric</label>
-                                <div class="kpi-grid">
-                                    <div>
-                                        <input 
-                                            type="text" 
-                                            placeholder="Metric name (e.g., Daily Active Users)" 
-                                            id="kpi1-name"
-                                            oninput="autosave()"
-                                        >
-                                    </div>
-                                    <div>
-                                        <div class="kpi-label">Baseline</div>
-                                        <input 
-                                            type="text" 
-                                            placeholder="15%" 
-                                            id="kpi1-baseline"
-                                            oninput="autosave()"
-                                        >
-                                    </div>
-                                    <div>
-                                        <div class="kpi-label">Target</div>
-                                        <input 
-                                            type="text" 
-                                            placeholder="60%" 
-                                            id="kpi1-target"
-                                            oninput="autosave()"
-                                        >
-                                    </div>
-                                    <div>
-                                        <div class="kpi-label">Results</div>
-                                        <input 
-                                            type="text" 
-                                            placeholder="TBD" 
-                                            id="kpi1-results"
-                                            class="disabled-result"
-                                        >
-                                    </div>
-                                </div>
-                                <input 
-                                    type="text" 
-                                    placeholder="How measured? Timeline? (e.g., Google Analytics, within 3 months)" 
-                                    id="kpi1-method"
-                                    oninput="autosave()"
-                                >
-                            </div>
-                        </div>
+                        <!-- Hidden compat fields -->
+                        <input type="hidden" id="opportunity-statement">
+                        <input type="hidden" id="kpi1-name">
+                        <input type="hidden" id="kpi1-baseline">
+                        <input type="hidden" id="kpi1-target">
+                        <input type="hidden" id="kpi1-method">
+                        <input type="hidden" id="kpi1-results">
+                        <div id="page-nav-value"></div>
                     </div>
                 </div>
 
@@ -1063,14 +1511,10 @@
                         <div class="form-section">
                             <div class="section-label">SMEs / Consulted</div>
                             <div class="form-field">
-                                <input 
-                                    type="text" 
-                                    placeholder="Who needs to provide input? (e.g., Design team, Engineering, Data team, Legal, Security...)" 
-                                    id="smes-consulted"
-                                    oninput="autosave()"
-                                >
+                                <input type="text" placeholder="Who needs to provide input? (e.g., Design team, Engineering, Data team, Legal, Security...)" id="smes-consulted" oninput="autosave()">
                             </div>
                         </div>
+                        <div id="page-nav-stakeholders"></div>
                     </div>
                 </div>
 
@@ -1082,11 +1526,37 @@
                     <div style="margin-top: 32px;">
                         <div id="features-container"></div>
                         
-                        <button class="btn-secondary" onclick="addFeature()" style="margin-top: 16px;">
-                            Add Feature
-                        </button>
+                        <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; align-items:center;">
+                            <button class="btn-secondary" onclick="addFeature()">Add Feature</button>
+                            <button class="btn-secondary" onclick="brainstormFeatures()" id="brainstorm-btn"
+                                style="display:flex; align-items:center; gap:6px; border-color:rgba(96,165,250,0.3); color:#93C5FD;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2L14 9.5L21.5 12L14 14.5L12 22L10 14.5L2.5 12L10 9.5L12 2Z" fill="#60A5FA"/></svg>
+                                Brainstorm with Claude
+                            </button>
+                        </div>
+
+                        <!-- AI Brainstorm results -->
+                        <div id="brainstorm-area" style="display:none; margin-top:20px;">
+                            <div id="brainstorm-loading" style="display:none;">
+                                <div class="info-box" style="display:flex; align-items:center; gap:10px;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="animation:spin 1s linear infinite; flex-shrink:0;"><circle cx="12" cy="12" r="10" stroke="#60A5FA" stroke-width="2" stroke-dasharray="32" stroke-dashoffset="12"/></svg>
+                                    Brainstorming features based on your brief...
+                                </div>
+                            </div>
+                            <div id="brainstorm-results" style="display:none;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                    <div style="font-size:11px; font-weight:600; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Claude's Suggestions — tap to add</div>
+                                    <button class="remove-btn" onclick="document.getElementById('brainstorm-area').style.display='none'">Dismiss</button>
+                                </div>
+                                <div id="brainstorm-suggestions"></div>
+                            </div>
+                            <div id="brainstorm-error" style="display:none;">
+                                <div class="info-box" style="color:#F87171;">Could not generate suggestions. Make sure your Problem and Personas sections are filled in.</div>
+                            </div>
+                        </div>
                         
-                        <input type="hidden" id="features-summary">
+                        <input type="hidden" id="features-summary" value="1. As a Data Analyst, I need to be able to see light">
+                        <div id="page-nav-features"></div>
                     </div>
                 </div>
 
@@ -1104,23 +1574,23 @@
                                     <div class="summary-value" id="sum-title">—</div>
                                 </div>
                                 <div class="summary-item">
-                                    <div class="summary-label">KPI</div>
+                                    <div class="summary-label">Objectives</div>
                                     <div class="summary-value" id="sum-kpi">—</div>
                                 </div>
                                 <div class="summary-item">
                                     <div class="summary-label">Priority</div>
-                                    <div class="summary-value" id="sum-priority">—</div>
+                                    <div class="summary-value" id="sum-priority">P0</div>
                                 </div>
                                 <div class="summary-item">
                                     <div class="summary-label">Features</div>
-                                    <div class="summary-value" id="sum-features">—</div>
+                                    <div class="summary-value" id="sum-features">1. As a Data Analyst, I need to be able to see light</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="generate-section">
                             <button class="btn-primary" onclick="generateRequirements()" id="generate-btn">
-                                Generate Epics & Stories
+                                Generate Epics &amp; Stories
                             </button>
                         </div>
 
@@ -1133,29 +1603,30 @@
                             <div class="error-box" id="error-message"></div>
                         </div>
 
-                        <div id="generated-requirements" style="display: none;">
-                            <div id="epics-container"></div>
-                            
-                            <div class="action-buttons">
-                                <button class="btn-secondary" onclick="exportToMarkdown()">
-                                    Export to Markdown
-                                </button>
-                                <button class="btn-secondary" onclick="regenerateRequirements()">
-                                    Regenerate
-                                </button>
+                            <div id="generated-requirements" style="display: none;">
+                                <div id="epics-container"></div>
+                                
+                                <div class="action-buttons">
+                                    <button class="btn-secondary" onclick="exportToMarkdown()">
+                                        Export to Markdown
+                                    </button>
+                                    <button class="btn-secondary" onclick="regenerateRequirements()">
+                                        Regenerate
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        <div id="page-nav-requirements"></div>
                     </div>
                 </div>
 
                 <!-- Report Card Page -->
-                <div class="page" id="page-reportcard">
+                <div class="page active" id="page-reportcard">
                     <div class="page-title">Report Card</div>
                     <div class="page-subtitle">Performance metrics dashboard</div>
                     
                     <div style="margin-top: 32px;">
                         <div class="form-section">
-                            <div class="section-label">Status & Last Updated</div>
+                            <div class="section-label">Status &amp; Last Updated</div>
                             <div class="form-grid">
                                 <div class="form-field">
                                     <label class="field-label">Status</label>
@@ -1170,27 +1641,30 @@
                                 </div>
                                 <div class="form-field">
                                     <label class="field-label">Last Updated</label>
-                                    <input type="date" id="last-updated" oninput="autosave()">
+                                    <div class="last-updated-display" onclick="openLastUpdatedPicker()">
+                                        <div class="last-updated-meta">
+                                            <span class="last-updated-sublabel">Last Updated</span>
+                                            <span class="last-updated-date-text empty" id="last-updated-display-text">Not set — tap to update</span>
+                                        </div>
+                                        <button class="last-updated-edit-btn" onclick="event.stopPropagation(); markUpdatedNow()">Update Now</button>
+                                    </div>
+                                    <input type="date" id="last-updated" class="last-updated-hidden" oninput="onDatePicked()">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-section">
-                            <div class="section-label">Primary KPI (from brief)</div>
-                            <div class="kpi-performance-card" id="kpi-performance-display">
-                                <!-- Will be populated dynamically -->
-                            </div>
+                            <div class="section-label">Objectives &amp; KPIs</div>
+                            <div class="kpi-performance-card" id="kpi-performance-display"><div class="info-box">Add objectives and KPIs in Value &amp; KPIs to see performance here.</div></div>
                         </div>
 
                         <div class="form-section">
-                            <div class="section-label">Additional Metrics</div>
+                            <div class="section-label">Observability Metrics</div>
                             <div class="info-box">
-                                Track supporting metrics that indicate feature health
+                                Post-launch health signals — things worth watching that aren't tied to a specific objective (e.g., error rates, load times, support ticket volume).
                             </div>
                             
-                            <div id="additional-metrics-container">
-                                <!-- Metrics will be added dynamically -->
-                            </div>
+                            <div id="additional-metrics-container"></div>
                             
                             <button class="btn-secondary" onclick="addMetric()" style="margin-top: 16px;">
                                 Add Metric
@@ -1203,10 +1677,9 @@
                                 Map personas to cohorts and track engagement by user type
                             </div>
                             
-                            <div id="persona-metrics-container">
-                                <!-- Persona metrics will be displayed dynamically -->
-                            </div>
+                            <div id="persona-metrics-container"></div>
                         </div>
+                        <div id="page-nav-reportcard"></div>
                     </div>
                 </div>
             </div>
@@ -1220,6 +1693,18 @@
         let featureIdCounter = 0;
         let currentPage = 'overview';
 
+        const PAGE_ORDER = ['overview', 'problem', 'personas', 'value', 'features', 'stakeholders', 'requirements', 'reportcard'];
+        const PAGE_LABELS = {
+            overview: 'Overview',
+            problem: 'Problem & Impact',
+            personas: 'Users & Personas',
+            value: 'Value & KPIs',
+            stakeholders: 'Stakeholders',
+            features: 'Features',
+            requirements: 'Requirements',
+            reportcard: 'Report Card'
+        };
+
         // Sidebar Toggle
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -1230,86 +1715,125 @@
 
         // Navigation
         function navigateTo(page) {
-            // Update active page
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(`page-${page}`).classList.add('active');
             
-            // Update active nav item
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            event.target.classList.add('active');
+            document.getElementById(`nav-${page}`).classList.add('active');
             
             currentPage = page;
+            renderPageNavigation(page);
             
-            // Update source summary if navigating to requirements
-            if (page === 'requirements') {
-                updateSourceSummary();
-            }
-            
-            // Update KPI performance if navigating to report card
+            if (page === 'requirements') updateSourceSummary();
             if (page === 'reportcard') {
                 updateKPIPerformance();
                 renderAdditionalMetrics();
                 renderPersonaMetrics();
             }
             
-            // Scroll to top
             window.scrollTo(0, 0);
+        }
+
+        function navigateByArrow(direction) {
+            const idx = PAGE_ORDER.indexOf(currentPage);
+            const newIdx = idx + direction;
+            if (newIdx < 0 || newIdx >= PAGE_ORDER.length) return;
+            const newPage = PAGE_ORDER[newIdx];
+
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page-${newPage}`).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(`nav-${newPage}`).classList.add('active');
+
+            currentPage = newPage;
+            renderPageNavigation(newPage);
+
+            if (newPage === 'requirements') updateSourceSummary();
+            if (newPage === 'reportcard') {
+                updateKPIPerformance();
+                renderAdditionalMetrics();
+                renderPersonaMetrics();
+            }
+            window.scrollTo(0, 0);
+        }
+
+        function renderPageNavigation(page) {
+            const idx = PAGE_ORDER.indexOf(page);
+            const container = document.getElementById(`page-nav-${page}`);
+            if (!container) return;
+
+            const hasPrev = idx > 0;
+            const hasNext = idx < PAGE_ORDER.length - 1;
+
+            container.innerHTML = `
+                <div class="page-navigation">
+                    ${hasPrev ? `
+                        <button class="nav-arrow-btn" onclick="navigateByArrow(-1)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <div>
+                                <div class="arrow-section-name">Previous</div>
+                                <div>${PAGE_LABELS[PAGE_ORDER[idx - 1]]}</div>
+                            </div>
+                        </button>
+                    ` : '<div></div>'}
+                    ${hasNext ? `
+                        <button class="nav-arrow-btn next-btn" onclick="navigateByArrow(1)">
+                            <div style="text-align:right;">
+                                <div class="arrow-section-name">Next</div>
+                                <div>${PAGE_LABELS[PAGE_ORDER[idx + 1]]}</div>
+                            </div>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    ` : '<div></div>'}
+                </div>
+            `;
         }
 
         // Report Card Functions
         function updateKPIPerformance() {
-            const briefData = gatherBriefData();
             const container = document.getElementById('kpi-performance-display');
-            
-            if (!briefData.kpi.name || !briefData.kpi.baseline || !briefData.kpi.target) {
-                container.innerHTML = '<div class="info-box">Complete the KPI section in Value & KPIs to see performance metrics here.</div>';
+            const allKpis = objectives.flatMap(o => o.kpis.filter(k => !k.editing && k.name));
+
+            if (allKpis.length === 0) {
+                container.innerHTML = '<div class="info-box">Add objectives and KPIs in Value &amp; KPIs to see performance here.</div>';
                 return;
             }
-            
-            const actual = briefData.kpi.results || 'TBD';
-            
-            // Calculate progress percentage if we have numeric values
-            let progressPercent = 0;
-            let progressText = 'Not yet measured';
-            
-            if (actual !== 'TBD' && actual !== '') {
-                const baselineNum = parseFloat(briefData.kpi.baseline);
-                const targetNum = parseFloat(briefData.kpi.target);
-                const actualNum = parseFloat(actual);
-                
-                if (!isNaN(baselineNum) && !isNaN(targetNum) && !isNaN(actualNum)) {
-                    const totalChange = targetNum - baselineNum;
-                    const actualChange = actualNum - baselineNum;
-                    progressPercent = Math.round((actualChange / totalChange) * 100);
-                    progressText = `${progressPercent}% of target reached`;
-                }
-            }
-            
-            container.innerHTML = `
-                <div class="kpi-metric-name">${briefData.kpi.name}</div>
-                <div class="kpi-values">
-                    <div class="kpi-value-item">
-                        <span class="kpi-value-label">Baseline</span>
-                        <span class="kpi-value-number">${briefData.kpi.baseline}</span>
-                    </div>
-                    <span class="kpi-arrow">→</span>
-                    <div class="kpi-value-item">
-                        <span class="kpi-value-label">Target</span>
-                        <span class="kpi-value-number">${briefData.kpi.target}</span>
-                    </div>
-                    <span class="kpi-arrow">→</span>
-                    <div class="kpi-value-item">
-                        <span class="kpi-value-label">Actual</span>
-                        <span class="kpi-value-number">${actual}</span>
-                    </div>
-                </div>
-                ${actual !== 'TBD' && actual !== '' ? `
-                    <div class="progress-bar-container">
-                        <div class="progress-bar-fill" style="width: ${Math.min(progressPercent, 100)}%"></div>
-                    </div>
-                    <div class="progress-percentage">${progressText}</div>
-                ` : ''}
-            `;
+
+            container.innerHTML = objectives.filter(o => o.kpis.some(k => k.name)).map(o => {
+                const kpiHtml = o.kpis.filter(k => k.name).map(k => {
+                    const actual = k.results || 'TBD';
+                    let progressPercent = 0, progressText = 'Not yet measured';
+                    if (actual !== 'TBD' && actual !== '') {
+                        const b = parseFloat(k.baseline), t = parseFloat(k.target), a = parseFloat(actual);
+                        if (!isNaN(b) && !isNaN(t) && !isNaN(a) && (t - b) !== 0) {
+                            progressPercent = Math.round(((a - b) / (t - b)) * 100);
+                            progressText = `${progressPercent}% of target reached`;
+                        }
+                    }
+                    return `
+                    <div style="margin-bottom:16px;">
+                        <div class="kpi-metric-name" style="font-size:14px;">${k.name}</div>
+                        <div class="kpi-values">
+                            <div class="kpi-value-item"><span class="kpi-value-label">Baseline</span><span class="kpi-value-number">${k.baseline||'—'}</span></div>
+                            <span class="kpi-arrow">→</span>
+                            <div class="kpi-value-item"><span class="kpi-value-label">Target</span><span class="kpi-value-number">${k.target||'—'}</span></div>
+                            <span class="kpi-arrow">→</span>
+                            <div class="kpi-value-item"><span class="kpi-value-label">Actual</span><span class="kpi-value-number">${actual}</span></div>
+                        </div>
+                        ${actual !== 'TBD' && actual !== '' ? `
+                            <div class="progress-bar-container" style="margin-top:8px;">
+                                <div class="progress-bar-fill" style="width:${Math.min(Math.max(progressPercent,0),100)}%"></div>
+                            </div>
+                            <div class="progress-percentage">${progressText}</div>` : ''}
+                    </div>`;
+                }).join('');
+
+                return `
+                <div style="margin-bottom:24px;">
+                    <div style="font-size:12px; font-weight:600; color:#64748B; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px;">${o.title || 'Objective'}</div>
+                    ${kpiHtml}
+                </div>`;
+            }).join('<div style="height:1px;background:rgba(148,163,184,0.1);margin:4px 0 20px;"></div>');
         }
 
         // Additional Metrics Management
@@ -1479,21 +2003,460 @@
 
             container.innerHTML = `
                 <div class="section-label" style="margin-top: 24px;">Saved Personas</div>
-                ${savedPersonas.map((p, i) => `
-                    <div class="feature-card" style="display: flex; justify-content: space-between; align-items: center;">
-                        <div style="cursor: pointer; flex: 1;" onclick="loadSavedPersona(${i})">
-                            <div style="font-weight: 600; color: #F8FAFC;">${p.name}</div>
-                            <div style="font-size: 12px; color: #94A3B8; margin-top: 4px;">${p.insights.substring(0, 80)}...</div>
+                ${savedPersonas.map((p, i) => {
+                    const isExpanded = p._expanded || false;
+                    return `
+                    <div class="feature-card" id="saved-persona-card-${i}"
+                         style="border-color: ${isExpanded ? 'rgba(96,165,250,0.35)' : ''}; transition: border-color 0.2s;">
+                        <!-- Collapsed header — always visible -->
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; cursor:pointer;"
+                             onclick="togglePersonaExpand(${i})">
+                            <div style="flex:1;">
+                                <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                                    <span style="font-weight:600; color:#F8FAFC;">${p.name}</span>
+                                    ${!isExpanded ? `<span class="saved-badge">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        Saved
+                                    </span>` : ''}
+                                </div>
+                                <div style="font-size:12px; color:#94A3B8;" id="persona-preview-${i}">
+                                    ${(p.insights || '').substring(0, 80)}${(p.insights || '').length > 80 ? '...' : ''}
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+                                ${!isExpanded
+                                    ? `<span style="font-size:11px; color:#475569; font-weight:500;">Tap to edit</span>
+                                       <button class="remove-btn" onclick="event.stopPropagation(); deleteSavedPersona(${i})">Remove</button>`
+                                    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="color:#64748B;"><path d="M18 15l-6-6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+                                }
+                            </div>
                         </div>
-                        <button class="remove-btn" onclick="deleteSavedPersona(${i})">Delete</button>
+                        <!-- Expanded editing fields -->
+                        <div class="persona-expand-edit" style="display:${isExpanded ? 'block' : 'none'};">
+                            <div class="form-field">
+                                <label class="field-label" style="font-size:12px;">Key Insights</label>
+                                <textarea style="min-height:80px; font-size:13px;"
+                                    oninput="updateSavedPersona(${i}, 'insights', this.value)"
+                                    onclick="event.stopPropagation()">${p.insights || ''}</textarea>
+                            </div>
+                            <div class="form-field" style="margin-bottom:0;">
+                                <label class="field-label" style="font-size:12px;">What Success Looks Like</label>
+                                <textarea style="min-height:60px; font-size:13px;"
+                                    oninput="updateSavedPersona(${i}, 'success', this.value)"
+                                    onclick="event.stopPropagation()">${p.success || ''}</textarea>
+                            </div>
+                            <div style="display:flex; gap:10px; margin-top:14px;" onclick="event.stopPropagation()">
+                                <button class="btn-primary" style="padding:9px 18px; font-size:12px;"
+                                    onclick="collapsePersona(${i})">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="margin-right:5px;vertical-align:-1px;"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                `).join('')}
+                `}).join('')}
             `;
+        }
+
+        function togglePersonaExpand(index) {
+            savedPersonas[index]._expanded = !savedPersonas[index]._expanded;
+            renderSavedPersonas();
+        }
+
+        function collapsePersona(index) {
+            savedPersonas[index]._expanded = false;
+            autosave();
+            renderSavedPersonas();
+        }
+
+        function updateSavedPersona(index, field, value) {
+            savedPersonas[index][field] = value;
+            autosave();
         }
 
         // AI Help
         async function getAIHelp(type) {
             alert('AI Help feature coming soon! This will provide guided questions and suggestions to help you craft better content.');
+        }
+
+        async function brainstormFeatures() {
+            const briefData = gatherBriefData();
+            if (!briefData.problemStatement && !briefData.personaName) {
+                alert('Fill in the Problem and Personas sections first so Claude has context to work from.');
+                return;
+            }
+
+            const area = document.getElementById('brainstorm-area');
+            const loading = document.getElementById('brainstorm-loading');
+            const results = document.getElementById('brainstorm-results');
+            const error = document.getElementById('brainstorm-error');
+            const btn = document.getElementById('brainstorm-btn');
+
+            area.style.display = 'block';
+            loading.style.display = 'block';
+            results.style.display = 'none';
+            error.style.display = 'none';
+            btn.disabled = true;
+
+            const existingFeatures = features.filter(f => f.action).map(f =>
+                `As a ${f.persona}, I ${f.necessity} to be able to ${f.action}`
+            ).join('\n');
+
+            const objectives_text = objectives.filter(o => o.title).map(o => {
+                const kpis = o.kpis.filter(k=>k.name).map(k=>`${k.name} (${k.baseline}→${k.target})`).join(', ');
+                return `${o.title}${kpis ? ': '+kpis : ''}`;
+            }).join('\n');
+
+            const prompt = `You are a senior product manager. Suggest 6-8 user stories for a product brief.
+
+Problem: ${briefData.problemStatement}
+Primary Persona: ${briefData.personaName}
+Persona Insights: ${briefData.personaInsights || 'Not specified'}
+Objectives: ${objectives_text || briefData.opportunity || 'Not specified'}
+${existingFeatures ? `\nAlready defined:\n${existingFeatures}` : ''}
+
+Return ONLY a JSON array — no markdown, no explanation:
+[
+  { "persona": "Data Analyst", "necessity": "need", "action": "see real-time DAU trends without exporting to spreadsheets" },
+  { "persona": "Product Manager", "necessity": "need", "action": "..." }
+]
+
+Rules:
+- Use personas from the brief where possible
+- Actions should be specific and outcome-focused, not implementation-focused
+- Do NOT duplicate already-defined features
+- Vary necessity between need/want/must
+- Return exactly a JSON array, nothing else`;
+
+            try {
+                const response = await fetch('/.netlify/functions/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ messages: [{ role: 'user', content: prompt }] })
+                });
+                if (!response.ok) throw new Error(`API ${response.status}`);
+                const data = await response.json();
+                const text = data.content[0].text.replace(/```json|```/g, '').trim();
+                const suggestions = JSON.parse(text);
+
+                const suggestionsEl = document.getElementById('brainstorm-suggestions');
+                suggestionsEl.innerHTML = suggestions.map((s, i) => `
+                    <div class="suggestion-card" id="suggestion-${i}">
+                        <button class="suggestion-add-btn" id="suggestion-btn-${i}"
+                            onclick="addSuggestedFeature(${i}, '${(s.persona||'').replace(/'/g,"\\'")}', '${s.necessity||'need'}', '${(s.action||'').replace(/'/g,"\\'")}')">+</button>
+                        <div style="flex:1; font-size:13px; color:#CBD5E1; line-height:1.5;">
+                            <span style="color:#94A3B8;">As a <strong style="color:#E2E8F0;">${s.persona||'user'}</strong>, I ${s.necessity||'need'} to be able to</span>
+                            <span style="color:#F8FAFC;"> ${s.action||''}</span>
+                        </div>
+                    </div>`).join('');
+
+                loading.style.display = 'none';
+                results.style.display = 'block';
+            } catch(e) {
+                loading.style.display = 'none';
+                error.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        function addSuggestedFeature(idx, persona, necessity, action) {
+            const card = document.getElementById(`suggestion-${idx}`);
+            const btn = document.getElementById(`suggestion-btn-${idx}`);
+            if (card.classList.contains('added')) return;
+
+            features.push({
+                id: featureIdCounter++,
+                persona: persona,
+                necessity: necessity,
+                action: action,
+                editing: false
+            });
+            renderFeatures();
+            updateFeaturesHiddenField();
+            autosave();
+
+            card.classList.add('added');
+            btn.classList.add('done');
+            btn.innerHTML = '✓';
+            btn.onclick = null;
+        }
+
+        // ── Value & KPIs: Objectives with child KPIs ─────────────────────
+
+        let objectives = [];
+        let objectiveIdCounter = 0;
+        let kpiIdCounter = 0;
+
+        // Kept as aliases so stray compat references don't error
+        let valueMetrics = { filter: (fn) => objectives.flatMap(o => o.kpis).filter(fn) };
+        let businessImpacts = [];
+        let successMetrics = [];
+
+        function addObjective() {
+            objectives.push({
+                id: objectiveIdCounter++,
+                title: '',
+                kpis: [],
+                editingTitle: true,
+                addingKpi: false
+            });
+            renderObjectives();
+            autosave();
+        }
+
+        function removeObjective(id) {
+            objectives = objectives.filter(o => o.id !== id);
+            renderObjectives();
+            syncCompatFields();
+            autosave();
+        }
+
+        function saveObjectiveTitle(id) {
+            const o = objectives.find(o => o.id === id);
+            if (o) { o.editingTitle = false; renderObjectives(); autosave(); }
+        }
+
+        function editObjectiveTitle(id) {
+            const o = objectives.find(o => o.id === id);
+            if (o) { o.editingTitle = true; renderObjectives(); }
+        }
+
+        function updateObjectiveTitle(id, val) {
+            const o = objectives.find(o => o.id === id);
+            if (o) { o.title = val; autosave(); }
+        }
+
+        function startAddKpi(objectiveId) {
+            const o = objectives.find(o => o.id === objectiveId);
+            if (o) { o.addingKpi = true; renderObjectives(); }
+        }
+
+        function cancelAddKpi(objectiveId) {
+            const o = objectives.find(o => o.id === objectiveId);
+            if (o) { o.addingKpi = false; o._draftKpi = null; renderObjectives(); }
+        }
+
+        function updateDraftKpi(objectiveId, field, value) {
+            const o = objectives.find(o => o.id === objectiveId);
+            if (!o) return;
+            if (!o._draftKpi) o._draftKpi = { name:'', baseline:'', target:'', method:'' };
+            o._draftKpi[field] = value;
+        }
+
+        function commitDraftKpi(objectiveId) {
+            const o = objectives.find(o => o.id === objectiveId);
+            if (!o || !o._draftKpi?.name) return;
+            o.kpis.push({ id: kpiIdCounter++, ...o._draftKpi, results: '', editing: false });
+            o._draftKpi = null;
+            o.addingKpi = false;
+            renderObjectives();
+            syncCompatFields();
+            autosave();
+        }
+
+        function removeKpi(objectiveId, kpiId) {
+            const o = objectives.find(o => o.id === objectiveId);
+            if (o) { o.kpis = o.kpis.filter(k => k.id !== kpiId); renderObjectives(); syncCompatFields(); autosave(); }
+        }
+
+        function editKpi(objectiveId, kpiId) {
+            const o = objectives.find(o => o.id === objectiveId);
+            const k = o?.kpis.find(k => k.id === kpiId);
+            if (k) { k.editing = true; renderObjectives(); }
+        }
+
+        function saveKpi(objectiveId, kpiId) {
+            const o = objectives.find(o => o.id === objectiveId);
+            const k = o?.kpis.find(k => k.id === kpiId);
+            if (k) { k.editing = false; renderObjectives(); syncCompatFields(); autosave(); }
+        }
+
+        function updateKpi(objectiveId, kpiId, field, value) {
+            const o = objectives.find(o => o.id === objectiveId);
+            const k = o?.kpis.find(k => k.id === kpiId);
+            if (k) { k[field] = value; syncCompatFields(); autosave(); }
+        }
+
+        function renderObjectives() {
+            const container = document.getElementById('objectives-container');
+            if (!container) return;
+            if (objectives.length === 0) { container.innerHTML = ''; return; }
+
+            container.innerHTML = objectives.map((o, idx) => {
+                const draft = o._draftKpi || {};
+
+                // KPI rows (saved)
+                const kpiRows = o.kpis.map(k => {
+                    if (k.editing) {
+                        return `
+                        <div class="kpi-inline-edit">
+                            <input type="text" placeholder="Metric name" value="${k.name}"
+                                style="margin-bottom:8px;"
+                                oninput="updateKpi(${o.id}, ${k.id}, 'name', this.value)">
+                            <div class="kpi-inline-edit-grid">
+                                <div>
+                                    <div class="kpi-label">How Measured</div>
+                                    <input type="text" placeholder="e.g., Amplitude" value="${k.method}"
+                                        oninput="updateKpi(${o.id}, ${k.id}, 'method', this.value)">
+                                </div>
+                                <div>
+                                    <div class="kpi-label">Baseline</div>
+                                    <input type="text" placeholder="10K" value="${k.baseline}"
+                                        oninput="updateKpi(${o.id}, ${k.id}, 'baseline', this.value)">
+                                </div>
+                                <div>
+                                    <div class="kpi-label">Target</div>
+                                    <input type="text" placeholder="20K" value="${k.target}"
+                                        oninput="updateKpi(${o.id}, ${k.id}, 'target', this.value)">
+                                </div>
+                            </div>
+                            <div style="display:flex; gap:8px; margin-top:10px;">
+                                <button class="btn-primary" style="padding:7px 14px; font-size:12px;"
+                                    onclick="saveKpi(${o.id}, ${k.id})">Save KPI</button>
+                                <button class="remove-btn" onclick="removeKpi(${o.id}, ${k.id})">Remove</button>
+                            </div>
+                        </div>`;
+                    }
+                    const nums = [k.baseline, k.target].filter(Boolean).join(' → ');
+                    return `
+                    <div class="kpi-child-row">
+                        <span class="kpi-child-name">${k.name || '<em style="color:#475569;">Unnamed</em>'}</span>
+                        ${nums ? `<span class="kpi-child-numbers"><strong>${nums}</strong></span>` : ''}
+                        ${k.method ? `<span style="font-size:11px; color:#475569;">· ${k.method}</span>` : ''}
+                        <button class="edit-btn" style="padding:4px 10px; font-size:11px; margin-left:4px;"
+                            onclick="event.stopPropagation(); editKpi(${o.id}, ${k.id})">Edit</button>
+                        <button class="remove-btn" style="padding:4px 8px;"
+                            onclick="event.stopPropagation(); removeKpi(${o.id}, ${k.id})">✕</button>
+                    </div>`;
+                }).join('');
+
+                // Add KPI inline form
+                const addKpiForm = o.addingKpi ? `
+                <div class="kpi-add-form">
+                    <div style="font-size:11px; font-weight:600; color:#64748B; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px;">New KPI</div>
+                    <input type="text" placeholder="Metric name (e.g., DAU, Session Duration, App Opens)"
+                        style="margin-bottom:10px;"
+                        oninput="updateDraftKpi(${o.id}, 'name', this.value)">
+                    <div class="kpi-add-grid">
+                        <div>
+                            <div class="kpi-label">How Measured</div>
+                            <input type="text" placeholder="e.g., Amplitude, 90 days"
+                                oninput="updateDraftKpi(${o.id}, 'method', this.value)">
+                        </div>
+                        <div>
+                            <div class="kpi-label">Baseline</div>
+                            <input type="text" placeholder="10K"
+                                oninput="updateDraftKpi(${o.id}, 'baseline', this.value)">
+                        </div>
+                        <div>
+                            <div class="kpi-label">Target</div>
+                            <input type="text" placeholder="20K"
+                                oninput="updateDraftKpi(${o.id}, 'target', this.value)">
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:8px; margin-top:10px;">
+                        <button class="btn-primary" style="padding:8px 16px; font-size:12px;"
+                            onclick="commitDraftKpi(${o.id})">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="margin-right:5px;vertical-align:-1px;"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Add KPI
+                        </button>
+                        <button class="remove-btn" onclick="cancelAddKpi(${o.id})">Cancel</button>
+                    </div>
+                </div>` : '';
+
+                // Objective card
+                if (o.editingTitle) {
+                    return `
+                    <div class="value-card editing">
+                        <div class="feature-header" style="margin-bottom:14px;">
+                            <span class="feature-number">Objective ${idx + 1}</span>
+                        </div>
+                        <input type="text" placeholder="e.g., Increase app usage, Reduce support costs, Improve onboarding"
+                            value="${o.title}"
+                            style="font-size:15px;"
+                            oninput="updateObjectiveTitle(${o.id}, this.value)"
+                            onkeydown="if(event.key==='Enter') saveObjectiveTitle(${o.id})">
+                        <div style="margin-top:14px;">
+                            <button class="btn-primary" style="padding:9px 18px; font-size:12px;"
+                                onclick="saveObjectiveTitle(${o.id})">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="margin-right:5px;vertical-align:-1px;"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                Save
+                            </button>
+                        </div>
+                    </div>`;
+                }
+
+                return `
+                <div class="value-card" style="border-color: rgba(148,163,184,0.12);">
+                    <!-- Objective header -->
+                    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:16px;">
+                        <div class="objective-title-display">${o.title || '<em style="color:#475569;font-weight:400;">No title</em>'}</div>
+                        <div style="display:flex; gap:8px; flex-shrink:0;">
+                            <button class="edit-btn" style="padding:5px 12px; font-size:11px;"
+                                onclick="editObjectiveTitle(${o.id})">Edit</button>
+                            <button class="remove-btn" onclick="removeObjective(${o.id})">Remove</button>
+                        </div>
+                    </div>
+
+                    <!-- KPI rows -->
+                    ${o.kpis.length > 0 ? kpiRows : `<div style="font-size:13px; color:#475569; font-style:italic; margin-bottom:12px;">No KPIs added yet.</div>`}
+
+                    <!-- Add KPI form or button -->
+                    ${addKpiForm}
+                    ${!o.addingKpi ? `
+                    <button class="btn-secondary" style="padding:7px 14px; font-size:12px; margin-top:6px;"
+                        onclick="startAddKpi(${o.id})">+ Add KPI</button>` : ''}
+                </div>`;
+            }).join('');
+        }
+
+        function syncCompatFields() {
+            const allKpis = objectives.flatMap(o => o.kpis).filter(k => !k.editing);
+            const primary = allKpis[0];
+            document.getElementById('kpi1-name').value     = primary?.name    || '';
+            document.getElementById('kpi1-baseline').value = primary?.baseline|| '';
+            document.getElementById('kpi1-target').value   = primary?.target  || '';
+            document.getElementById('kpi1-method').value   = primary?.method  || '';
+            document.getElementById('kpi1-results').value  = primary?.results || '';
+            const allObjectives = objectives.filter(o => o.title).map(o => o.title).join('; ');
+            document.getElementById('opportunity-statement').value = allObjectives;
+        }
+
+        function updateImpactMapping() {}
+        function updateImpactMappingDisplay() {}
+
+        // Last Updated - styled display
+        function openLastUpdatedPicker() {
+            const picker = document.getElementById('last-updated');
+            picker.showPicker ? picker.showPicker() : picker.click();
+        }
+
+        function onDatePicked() {
+            const val = document.getElementById('last-updated').value;
+            updateLastUpdatedDisplay(val);
+            autosave();
+        }
+
+        function markUpdatedNow() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('last-updated').value = today;
+            updateLastUpdatedDisplay(today);
+            autosave();
+        }
+
+        function updateLastUpdatedDisplay(val) {
+            const el = document.getElementById('last-updated-display-text');
+            if (!el) return;
+            if (val) {
+                const date = new Date(val + 'T00:00:00');
+                const formatted = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                el.textContent = formatted;
+                el.classList.remove('empty');
+            } else {
+                el.textContent = 'Not set — tap to update';
+                el.classList.add('empty');
+            }
         }
 
         // Stakeholder Management
@@ -1502,7 +2465,8 @@
                 id: stakeholderIdCounter++,
                 name: '',
                 role: '',
-                status: ''
+                status: '',
+                editing: true
             };
             stakeholders.push(stakeholder);
             renderStakeholders();
@@ -1523,6 +2487,23 @@
             }
         }
 
+        function saveStakeholder(id) {
+            const sh = stakeholders.find(s => s.id === id);
+            if (sh) {
+                sh.editing = false;
+                renderStakeholders();
+                autosave();
+            }
+        }
+
+        function editStakeholderCard(id) {
+            const sh = stakeholders.find(s => s.id === id);
+            if (sh) {
+                sh.editing = true;
+                renderStakeholders();
+            }
+        }
+
         function renderStakeholders() {
             const container = document.getElementById('stakeholders-container');
             if (stakeholders.length === 0) {
@@ -1530,34 +2511,61 @@
                 return;
             }
 
-            container.innerHTML = stakeholders.map((sh, index) => `
-                <div class="feature-card">
-                    <div class="feature-header">
-                        <span class="feature-number">Stakeholder ${index + 1}</span>
-                        <button class="remove-btn" onclick="removeStakeholder(${sh.id})">Remove</button>
-                    </div>
-                    <div class="stakeholder-row">
-                        <input 
-                            type="text" 
-                            placeholder="Name" 
-                            value="${sh.name}"
-                            oninput="updateStakeholder(${sh.id}, 'name', this.value)"
-                        >
-                        <input 
-                            type="text" 
-                            placeholder="Role" 
-                            value="${sh.role}"
-                            oninput="updateStakeholder(${sh.id}, 'role', this.value)"
-                        >
-                        <select onchange="updateStakeholder(${sh.id}, 'status', this.value)">
-                            <option value="">Status</option>
-                            <option value="aligned" ${sh.status === 'aligned' ? 'selected' : ''}>Aligned</option>
-                            <option value="pending" ${sh.status === 'pending' ? 'selected' : ''}>Pending</option>
-                            <option value="concerns" ${sh.status === 'concerns' ? 'selected' : ''}>Concerns</option>
-                        </select>
-                    </div>
-                </div>
-            `).join('');
+            const statusColors = { aligned: '#34D399', pending: '#FCD34D', concerns: '#F87171' };
+            const statusLabels = { aligned: 'Aligned', pending: 'Pending', concerns: 'Concerns' };
+
+            container.innerHTML = stakeholders.map((sh, index) => {
+                if (sh.editing) {
+                    return `
+                    <div class="stakeholder-card" style="border-color:rgba(96,165,250,0.3);">
+                        <div class="feature-header" style="margin-bottom:14px;">
+                            <span class="feature-number">Stakeholder ${index + 1}</span>
+                        </div>
+                        <div class="stakeholder-row">
+                            <input type="text" placeholder="Name" value="${sh.name}"
+                                oninput="updateStakeholder(${sh.id}, 'name', this.value)">
+                            <input type="text" placeholder="Role" value="${sh.role}"
+                                oninput="updateStakeholder(${sh.id}, 'role', this.value)">
+                            <select onchange="updateStakeholder(${sh.id}, 'status', this.value)">
+                                <option value="">Status</option>
+                                <option value="aligned" ${sh.status === 'aligned' ? 'selected' : ''}>Aligned</option>
+                                <option value="pending" ${sh.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                <option value="concerns" ${sh.status === 'concerns' ? 'selected' : ''}>Concerns</option>
+                            </select>
+                        </div>
+                        <div style="margin-top:14px;">
+                            <button class="btn-primary" style="padding:9px 18px; font-size:12px;"
+                                onclick="saveStakeholder(${sh.id})">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="margin-right:5px;vertical-align:-1px;"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                Save
+                            </button>
+                        </div>
+                    </div>`;
+                } else {
+                    const statusColor = statusColors[sh.status] || '#64748B';
+                    const statusLabel = statusLabels[sh.status] || '';
+                    return `
+                    <div class="stakeholder-card is-saved" style="cursor:pointer;" onclick="editStakeholderCard(${sh.id})">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+                            <div style="flex:1;">
+                                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:5px;">
+                                    <span style="font-weight:600; color:#F8FAFC;">${sh.name || '<em style="color:#64748B;font-weight:400;">No name</em>'}</span>
+                                    ${sh.role ? `<span style="font-size:12px; color:#94A3B8;">${sh.role}</span>` : ''}
+                                    ${sh.status ? `<span style="font-size:11px; font-weight:600; color:${statusColor}; background:${statusColor}18; padding:2px 8px; border-radius:4px;">${statusLabel}</span>` : ''}
+                                </div>
+                                <span class="saved-badge">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    Saved
+                                </span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+                                <span style="font-size:11px; color:#475569; font-weight:500;">Tap to edit</span>
+                                <button class="remove-btn" onclick="event.stopPropagation(); removeStakeholder(${sh.id})">Remove</button>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+            }).join('');
         }
 
         // Feature Management
@@ -1566,7 +2574,8 @@
                 id: featureIdCounter++,
                 persona: '',
                 necessity: 'need',
-                action: ''
+                action: '',
+                editing: true
             };
             features.push(feature);
             renderFeatures();
@@ -1597,48 +2606,96 @@
             
             // Get custom persona name if defined
             const customPersonaName = document.getElementById('persona-name').value;
-            const customPersonaOption = customPersonaName 
-                ? `<option value="${customPersonaName}" ${feature.persona === customPersonaName ? 'selected' : ''}>${customPersonaName}</option>`
-                : '';
             
-            container.innerHTML = features.map((feature, index) => `
-                <div class="feature-card">
-                    <div class="feature-header">
-                        <span class="feature-number">Feature ${index + 1}</span>
-                        <button class="remove-btn" onclick="removeFeature(${feature.id})">Remove</button>
-                    </div>
-                    <div class="feature-story-line">
-                        <span>As a</span>
-                        <select onchange="updateFeature(${feature.id}, 'persona', this.value)">
-                            <option value="">Select persona...</option>
-                            ${customPersonaOption}
-                            <option value="Account Manager" ${feature.persona === 'Account Manager' ? 'selected' : ''}>Account Manager</option>
-                            <option value="Sales Leader" ${feature.persona === 'Sales Leader' ? 'selected' : ''}>Sales Leader</option>
-                            <option value="Data Analyst" ${feature.persona === 'Data Analyst' ? 'selected' : ''}>Data Analyst</option>
-                            <option value="Product Manager" ${feature.persona === 'Product Manager' ? 'selected' : ''}>Product Manager</option>
-                            <option value="Executive" ${feature.persona === 'Executive' ? 'selected' : ''}>Executive</option>
-                            <option value="Customer" ${feature.persona === 'Customer' ? 'selected' : ''}>Customer</option>
-                            <option value="Custom" ${feature.persona === 'Custom' ? 'selected' : ''}>Custom</option>
-                        </select>
-                        <span>, I</span>
-                        <select onchange="updateFeature(${feature.id}, 'necessity', this.value)">
-                            <option value="need" ${feature.necessity === 'need' ? 'selected' : ''}>need</option>
-                            <option value="want" ${feature.necessity === 'want' ? 'selected' : ''}>want</option>
-                            <option value="must" ${feature.necessity === 'must' ? 'selected' : ''}>must</option>
-                        </select>
-                        <span>to be able to:</span>
-                    </div>
-                    <input 
-                        type="text" 
-                        class="feature-action-input"
-                        placeholder="e.g., see client health at a glance without opening multiple tools"
-                        value="${feature.action}"
-                        oninput="updateFeature(${feature.id}, 'action', this.value)"
-                    >
-                </div>
-            `).join('');
+            container.innerHTML = features.map((feature, index) => {
+                if (feature.editing) {
+                    const customPersonaOption = customPersonaName 
+                        ? `<option value="${customPersonaName}" ${feature.persona === customPersonaName ? 'selected' : ''}>${customPersonaName}</option>`
+                        : '';
+                    return `
+                        <div class="feature-editing-card" id="feature-card-${feature.id}">
+                            <div class="feature-header">
+                                <span class="feature-number">Feature ${index + 1}</span>
+                            </div>
+                            <div class="feature-story-line">
+                                <span>As a</span>
+                                <select onchange="updateFeature(${feature.id}, 'persona', this.value)">
+                                    <option value="">Select persona...</option>
+                                    ${customPersonaOption}
+                                    <option value="Account Manager" ${feature.persona === 'Account Manager' ? 'selected' : ''}>Account Manager</option>
+                                    <option value="Sales Leader" ${feature.persona === 'Sales Leader' ? 'selected' : ''}>Sales Leader</option>
+                                    <option value="Data Analyst" ${feature.persona === 'Data Analyst' ? 'selected' : ''}>Data Analyst</option>
+                                    <option value="Product Manager" ${feature.persona === 'Product Manager' ? 'selected' : ''}>Product Manager</option>
+                                    <option value="Executive" ${feature.persona === 'Executive' ? 'selected' : ''}>Executive</option>
+                                    <option value="Customer" ${feature.persona === 'Customer' ? 'selected' : ''}>Customer</option>
+                                    <option value="Custom" ${feature.persona === 'Custom' ? 'selected' : ''}>Custom</option>
+                                </select>
+                                <span>, I</span>
+                                <select onchange="updateFeature(${feature.id}, 'necessity', this.value)">
+                                    <option value="need" ${feature.necessity === 'need' ? 'selected' : ''}>need</option>
+                                    <option value="want" ${feature.necessity === 'want' ? 'selected' : ''}>want</option>
+                                    <option value="must" ${feature.necessity === 'must' ? 'selected' : ''}>must</option>
+                                </select>
+                                <span>to be able to:</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                class="feature-action-input"
+                                placeholder="e.g., see client health at a glance without opening multiple tools"
+                                value="${feature.action}"
+                                oninput="updateFeature(${feature.id}, 'action', this.value)"
+                                onkeydown="if(event.key==='Enter') saveFeature(${feature.id})"
+                            >
+                            <div style="margin-top:14px;">
+                                <button class="btn-primary" style="padding:9px 18px; font-size:12px;"
+                                    onclick="saveFeature(${feature.id})">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="margin-right:5px;vertical-align:-1px;"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const storyText = feature.persona || feature.action
+                        ? `As a <strong>${feature.persona || '[persona]'}</strong>, I ${feature.necessity} to be able to ${feature.action || '<em>no action defined</em>'}`
+                        : '<em>Empty feature — tap to edit</em>';
+                    return `
+                        <div class="feature-saved-card" onclick="editFeature(${feature.id})">
+                            <div class="feature-saved-story">
+                                <div class="feature-saved-number">Feature ${index + 1}</div>
+                                <div class="feature-saved-text">${storyText}</div>
+                            </div>
+                            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex-shrink:0;">
+                                <span class="saved-badge">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    Saved
+                                </span>
+                                <span class="feature-edit-hint">Tap to edit</span>
+                                <button class="remove-btn" style="font-size:10px;" onclick="event.stopPropagation(); removeFeature(${feature.id})">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
             
             updateFeaturesHiddenField();
+        }
+
+        function saveFeature(id) {
+            const feature = features.find(f => f.id === id);
+            if (feature) {
+                feature.editing = false;
+                renderFeatures();
+                autosave();
+            }
+        }
+
+        function editFeature(id) {
+            const feature = features.find(f => f.id === id);
+            if (feature) {
+                feature.editing = true;
+                renderFeatures();
+            }
         }
 
         function updateFeaturesHiddenField() {
@@ -1654,7 +2711,31 @@
             autosaveTimer = setTimeout(() => {
                 const briefData = gatherBriefData();
                 localStorage.setItem('productBrief', JSON.stringify(briefData));
+                updateCompletionDots();
             }, 500);
+        }
+
+        function updateCompletionDots() {
+            const checks = {
+                overview:     () => !!(document.getElementById('project-title')?.value),
+                problem:      () => !!(document.getElementById('problem-statement')?.value),
+                personas:     () => !!(document.getElementById('persona-name')?.value),
+                value:        () => objectives.some(o => o.title),
+                features:     () => features.some(f => f.action),
+                stakeholders: () => stakeholders.some(s => s.name),
+                requirements: () => currentEpics.length > 0,
+                reportcard:   () => !!(document.getElementById('feature-status')?.value)
+            };
+            Object.entries(checks).forEach(([page, check]) => {
+                const dot = document.getElementById(`dot-${page}`);
+                if (dot) dot.classList.toggle('visible', check());
+            });
+        }
+
+        function confirmNewBrief() {
+            if (!confirm('Start a new brief? This will clear all current data and cannot be undone.')) return;
+            localStorage.removeItem('productBrief');
+            location.reload();
         }
 
         function gatherBriefData() {
@@ -1676,6 +2757,7 @@
                     method: document.getElementById('kpi1-method').value,
                     results: document.getElementById('kpi1-results').value
                 },
+                objectives: objectives,
                 stakeholders: stakeholders,
                 smes: document.getElementById('smes-consulted').value,
                 features: document.getElementById('features-summary').value,
@@ -1699,21 +2781,54 @@
             document.getElementById('persona-name').value = data.personaName || '';
             document.getElementById('persona-insights').value = data.personaInsights || '';
             document.getElementById('persona-success').value = data.personaSuccess || '';
-            document.getElementById('opportunity-statement').value = data.opportunity || '';
-            document.getElementById('kpi1-name').value = data.kpi?.name || '';
-            document.getElementById('kpi1-baseline').value = data.kpi?.baseline || '';
-            document.getElementById('kpi1-target').value = data.kpi?.target || '';
-            document.getElementById('kpi1-method').value = data.kpi?.method || '';
-            document.getElementById('kpi1-results').value = data.kpi?.results || '';
             document.getElementById('smes-consulted').value = data.smes || '';
-            
+
+            // Load objectives (new format)
+            if (data.objectives && data.objectives.length > 0) {
+                objectives = data.objectives.map(o => ({ ...o, editingTitle: false, addingKpi: false, _draftKpi: null,
+                    kpis: (o.kpis || []).map(k => ({ ...k, editing: false })) }));
+                objectiveIdCounter = Math.max(...objectives.map(o => o.id)) + 1;
+                const allKpis = objectives.flatMap(o => o.kpis);
+                if (allKpis.length) kpiIdCounter = Math.max(...allKpis.map(k => k.id)) + 1;
+                renderObjectives();
+                syncCompatFields();
+            } else if (data.valueMetrics && data.valueMetrics.length > 0) {
+                // Migrate valueMetrics → one objective per metric (flatten)
+                objectives = data.valueMetrics.map(m => ({
+                    id: objectiveIdCounter++,
+                    title: m.impact || m.name || '',
+                    editingTitle: false, addingKpi: false, _draftKpi: null,
+                    kpis: m.name ? [{ id: kpiIdCounter++, name: m.name, baseline: m.baseline||'', target: m.target||'', method: m.method||'', results: m.results||'', editing: false }] : []
+                }));
+                renderObjectives();
+                syncCompatFields();
+            } else if (data.successMetrics && data.successMetrics.length > 0) {
+                // Migrate two-list format
+                objectives = [{
+                    id: objectiveIdCounter++,
+                    title: data.opportunity || '',
+                    editingTitle: false, addingKpi: false, _draftKpi: null,
+                    kpis: data.successMetrics.map(m => ({ id: kpiIdCounter++, name: m.name||'', baseline: m.baseline||'', target: m.target||'', method: m.method||'', results: m.results||'', editing: false }))
+                }];
+                renderObjectives();
+                syncCompatFields();
+            } else if (data.kpi?.name) {
+                // Migrate original single KPI
+                objectives = [{
+                    id: objectiveIdCounter++,
+                    title: data.opportunity || '',
+                    editingTitle: false, addingKpi: false, _draftKpi: null,
+                    kpis: [{ id: kpiIdCounter++, name: data.kpi.name, baseline: data.kpi.baseline||'', target: data.kpi.target||'', method: data.kpi.method||'', results: data.kpi.results||'', editing: false }]
+                }];
+                renderObjectives();
+                syncCompatFields();
+            }
+
             // Load stakeholders
             if (data.stakeholders && Array.isArray(data.stakeholders) && data.stakeholders.length > 0) {
-                stakeholders = data.stakeholders;
+                stakeholders = data.stakeholders.map(s => ({ ...s, editing: false }));
                 stakeholderIdCounter = Math.max(...stakeholders.map(s => s.id)) + 1;
                 renderStakeholders();
-            } else if (stakeholders.length === 0) {
-                addStakeholder();
             }
             
             // Load saved personas
@@ -1724,7 +2839,9 @@
             
             // Load report card data
             document.getElementById('feature-status').value = data.reportCard?.status || '';
-            document.getElementById('last-updated').value = data.reportCard?.lastUpdated || '';
+            const savedDate = data.reportCard?.lastUpdated || '';
+            document.getElementById('last-updated').value = savedDate;
+            updateLastUpdatedDisplay(savedDate);
             
             // Load additional metrics
             if (data.reportCard?.additionalMetrics && data.reportCard.additionalMetrics.length > 0) {
@@ -1739,9 +2856,12 @@
             
             document.getElementById('sum-title').textContent = data.title || '—';
             
-            const kpiText = data.kpi.name && data.kpi.target 
-                ? `${data.kpi.name} → ${data.kpi.target}` 
-                : '—';
+            // Show first objective + KPI count
+            const firstObj = objectives.find(o => o.title);
+            const totalKpis = objectives.reduce((n, o) => n + o.kpis.filter(k => k.name).length, 0);
+            const kpiText = firstObj
+                ? `${firstObj.title}${totalKpis ? ` · ${totalKpis} KPI${totalKpis > 1 ? 's' : ''}` : ''}`
+                : (data.kpi.name ? `${data.kpi.name} → ${data.kpi.target}` : '—');
             document.getElementById('sum-kpi').textContent = kpiText;
             
             document.getElementById('sum-priority').textContent = 
@@ -1830,10 +2950,9 @@ Target Users: ${briefData.personaName}
 ${briefData.personaInsights}
 Success Criteria: ${briefData.personaSuccess}
 
-Business Opportunity: ${briefData.opportunity}
+Business Opportunity: ${objectives.filter(o=>o.title).map(o=>o.title).join('; ') || briefData.opportunity}
 
-KPI: ${briefData.kpi.name} (${briefData.kpi.baseline} → ${briefData.kpi.target})
-Measurement: ${briefData.kpi.method}
+${objectives.flatMap(o => o.kpis.filter(k=>k.name).map(k => `KPI: ${k.name} (${k.baseline||'?'} → ${k.target||'?'})${k.method ? ' · '+k.method : ''} [${o.title}]`)).join('\n') || `KPI: ${briefData.kpi.name} (${briefData.kpi.baseline} → ${briefData.kpi.target})`}
 
 Key Features:
 ${briefData.features}
@@ -2040,6 +3159,9 @@ Return ONLY valid JSON in this exact format:
 
         // Load saved brief on page load
         window.addEventListener('load', () => {
+            // Render page navigation for the initial active page (reportcard is default active)
+            renderPageNavigation('reportcard');
+
             const saved = localStorage.getItem('productBrief');
             if (saved) {
                 try {
@@ -2047,30 +3169,18 @@ Return ONLY valid JSON in this exact format:
                     loadBriefData(data);
                     
                     if (data.featuresStructured && data.featuresStructured.length > 0) {
-                        features = data.featuresStructured;
+                        features = data.featuresStructured.map(f => ({ ...f, editing: false }));
                         featureIdCounter = Math.max(...features.map(f => f.id)) + 1;
                         renderFeatures();
-                    } else if (features.length === 0) {
-                        addFeature();
                     }
                 } catch (e) {
                     console.error('Failed to load saved brief:', e);
-                    if (features.length === 0) {
-                        addFeature();
-                    }
-                    if (stakeholders.length === 0) {
-                        addStakeholder();
-                    }
-                }
-            } else {
-                if (features.length === 0) {
-                    addFeature();
-                }
-                if (stakeholders.length === 0) {
-                    addStakeholder();
                 }
             }
+
+            updateCompletionDots();
         });
     </script>
-</body>
-</html>
+
+
+</body></html>
